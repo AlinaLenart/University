@@ -1,8 +1,7 @@
 package Database;
-import Employees.AdministrationEmployee;
 
 import java.util.regex.*;
-public class Search {
+public class Regex {
 //    public static void displayResults(ArrayList<>){
 //
 //    }
@@ -17,8 +16,6 @@ public class Search {
         return matcher.find();
 
     }
-
-
 
 
 

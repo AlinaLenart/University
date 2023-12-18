@@ -3,9 +3,9 @@ import Student.Course;
 
 import java.util.ArrayList;
 
-public class CoursesDatabase implements Database{
+public class Courses implements Database{
     ArrayList<Course> courseArrayList = new ArrayList<>();
-    public CoursesDatabase(){
+    public Courses(){
         courseArrayList.add(new Course("Administrowanie serwerami", "Maciej Wilk", 7));
         courseArrayList.add(new Course("Programowanie strukturalne", "Maciej Wilk", 7));
         courseArrayList.add(new Course("Bazy danych", "Henryk Mickiwicz", 7));
@@ -39,7 +39,7 @@ public class CoursesDatabase implements Database{
 
         for (int i = 0; i < courseArrayList.size(); i++) {
 
-            System.out.println(courseArrayList.get(i));
+            System.out.println(i + " " +courseArrayList.get(i));
         }
     }
     public ArrayList<Course> createSchedule(int[] indexArray){
@@ -49,7 +49,7 @@ public class CoursesDatabase implements Database{
         for (int i = 0; i < indexArray.length; i++) {
 
             if(indexArray[i] < 0 || indexArray[i] > (courseArrayList.size() - 1))
-                System.out.println("Podano zly indeks");
+                System.out.println("Podano bledny numer indeksu");
 
             else
                 studentSchedule.add(courseArrayList.get(indexArray[i]));
@@ -57,36 +57,59 @@ public class CoursesDatabase implements Database{
 
         return studentSchedule;
     }
+    public void results(int found){
 
+        if(found <= 0)
+            System.out.println("Nie znaleziono");
+        else
+            System.out.println("Znaleziono "+ found +" wynikow pasujacych do kryteriow");
+    }
     public void searchByName(String regex){
+
+        int found = 0;
 
         for (int i = 0; i < courseArrayList.size(); i++) {
 
             String element = courseArrayList.get(i).getName();
 
-            if(Search.stringSearch(regex, element))
-                System.out.println(courseArrayList.get(i));
-        }
+            if(Regex.stringSearch(regex, element)) {
 
+                System.out.println(courseArrayList.get(i));
+                found++;
+            }
+        }
+        results(found);
     }
     public void searchByTeacher(String regex){
+
+        int found = 0;
 
         for (int i = 0; i < courseArrayList.size(); i++) {
 
             String element = courseArrayList.get(i).getTeacher();
 
-            if(Search.stringSearch(regex, element))
+            if(Regex.stringSearch(regex, element)) {
+
                 System.out.println(courseArrayList.get(i));
+                found++;
+            }
         }
+        results(found);
     }
 
     public void searchByEcts(int ects){
 
+        int found = 0;
+
         for (int i = 0; i < courseArrayList.size(); i++) {
 
-            if(courseArrayList.get(i).getEcts() == ects)
+            if(courseArrayList.get(i).getEcts() == ects) {
+
                 System.out.println(courseArrayList.get(i));
+                found++;
+            }
         }
+        results(found);
     }
 
 

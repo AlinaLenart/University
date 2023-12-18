@@ -13,17 +13,17 @@ public class ResearchEmployee extends UniversityEmployee {
 
     @Override
     public String toString() {
-        return "ResearchEmployee{" +
-                "releases=" + releases +
-                ", position=" + jobPosition() +
-                ", workExperience=" + workExperience +
-                ", salary=" + salary +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+        return "Pracownik Badawczo-Dydaktyczny : " +
+                "imie='" + name + '\'' +
+                ", nazwisko='" + surname + '\'' +
                 ", pesel='" + pesel + '\'' +
-                ", age=" + age +
-                ", sex=" + sex +
-                '}';
+                ", wiek=" + age +
+                ", plec=" + sex +
+                ", stanowisko=" + jobPosition() + '\'' +
+                ", staz pracy=" + workExperience +
+                ", pensja=" + salary +
+                ", publikacje=" + releases;
+
     }
 
     public String jobPosition(){

@@ -19,17 +19,16 @@ public class AdministrationEmployee extends UniversityEmployee {
 
     @Override
     public String toString() {
-        return "AdministrationEmployee{" +
-                "overtime=" + overtime +
-                ", position=" + jobPosition() +
-                ", workExperience=" + workExperience +
-                ", salary=" + salary +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+        return "Pracownik Administracyjny : " +
+                "imie='" + name + '\'' +
+                ", nazwisko='" + surname + '\'' +
                 ", pesel='" + pesel + '\'' +
-                ", age=" + age +
-                ", sex=" + sex +
-                '}';
+                ", wiek=" + age +
+                ", plec=" + sex +
+                ", stanowisko=" + jobPosition() + '\'' +
+                ", staz pracy=" + workExperience +
+                ", pensja=" + salary +
+                ", nadgodziny=" + overtime;
     }
 
     public int getOvertime() {

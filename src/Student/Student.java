@@ -70,13 +70,17 @@ public class Student extends Person {
 
     
     public String toString() {
-        return "Student{" +
-                "studentID=" + studentID +
-                ", year=" + year +
+        return "Student : " +
+                "imie=" + name + '\'' +
+                ", nazwisko='" + surname + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", wiek=" + age +
+                ", plec=" + sex +
+                ", nr indeksu=" + studentID +
+                ", rok=" + year +
                 ", erasmus=" + erasmus +
-                ", degree=" + degree +
-                ", remote=" + remote +
-                ", courseList=" + courseList.toString() +
-                '}';
+                ", stopien=" + degree +
+                ", zdalnie=" + remote +
+                ", lista kursow=" + courseList.toString();
     }
 }
