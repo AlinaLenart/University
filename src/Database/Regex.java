@@ -2,9 +2,6 @@ package Database;
 
 import java.util.regex.*;
 public class Regex {
-//    public static void displayResults(ArrayList<>){
-//
-//    }
     public static boolean stringSearch(String regex, String element){
 
         regex = regex.toLowerCase();

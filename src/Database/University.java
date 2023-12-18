@@ -1,6 +1,5 @@
 package Database;
-import Employees.AdministrationEmployee;
-import Employees.UniversityEmployee;
+import Employees.*;
 import Person.Person;
 import Student.*;
 import java.util.ArrayList;
@@ -13,14 +12,8 @@ public class University implements Database{
 
         personArrayList.add((Person) ob);
     }
-    public void displayDatabase(){
 
-        for (int i = 0; i < personArrayList.size(); i++) {
-
-            System.out.println(personArrayList.get(i));
-        }
-    }
-    public void displayRecords(Class<?> displayType){
+    public void displayDatabase(Class<?> displayType){
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -179,6 +172,16 @@ public class University implements Database{
                     AdministrationEmployee employee1 = (AdministrationEmployee) employee;
 
                     if(employee1.getOvertime() == converted) {
+
+                        System.out.println(personArrayList.get(i));
+                        found++;
+                    }
+                }
+                else if(employee instanceof ResearchEmployee){
+
+                    ResearchEmployee employee1 = (ResearchEmployee) employee;
+
+                    if(employee1.getReleases() == converted) {
 
                         System.out.println(personArrayList.get(i));
                         found++;

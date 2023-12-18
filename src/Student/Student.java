@@ -70,8 +70,8 @@ public class Student extends Person {
 
     
     public String toString() {
-        return "Student : " +
-                "imie=" + name + '\'' +
+        return "Student: " +
+                "imie='" + name + '\'' +
                 ", nazwisko='" + surname + '\'' +
                 ", pesel='" + pesel + '\'' +
                 ", wiek=" + age +

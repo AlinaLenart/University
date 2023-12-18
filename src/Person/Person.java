@@ -12,7 +12,7 @@ public abstract class Person {
         this.surname = surname;
         this.pesel = pesel;
         this.age = age;
-        this.sex = sex;
+        this.sex = Character.toUpperCase(sex);
     }
 
     public String getName() {

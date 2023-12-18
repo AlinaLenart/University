@@ -4,6 +4,7 @@ import Person.Person;
 
 public class ResearchEmployee extends UniversityEmployee {
     private int releases;
+
     public ResearchEmployee(String name, String surname, String pesel, int age, char sex,
                             int position, int workExperience, double pensja,
                             int releases){
@@ -19,7 +20,7 @@ public class ResearchEmployee extends UniversityEmployee {
                 ", pesel='" + pesel + '\'' +
                 ", wiek=" + age +
                 ", plec=" + sex +
-                ", stanowisko=" + jobPosition() + '\'' +
+                ", stanowisko='" + jobPosition() + '\'' +
                 ", staz pracy=" + workExperience +
                 ", pensja=" + salary +
                 ", publikacje=" + releases;
@@ -37,5 +38,7 @@ public class ResearchEmployee extends UniversityEmployee {
         }
     }
 
-
+    public int getReleases() {
+        return releases;
+    }
 }

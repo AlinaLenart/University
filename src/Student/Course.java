@@ -36,7 +36,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Kurs{" +
+        return "Kurs {" +
                 "nazwa='" + name + '\'' +
                 ", prowadzacy='" + teacher + '\'' +
                 ", ects=" + ects +

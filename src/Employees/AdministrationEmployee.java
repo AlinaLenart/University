@@ -13,6 +13,7 @@ public class AdministrationEmployee extends UniversityEmployee {
             case 2: return "Specjalista";
             case 3: return "Starszy Specjalista";
             case 4: return "Nadzorujacy Badania";
+            case 5: return "Prezes Zarzadu";
             default: return "Nieznane stanowisko";
         }
     }
@@ -25,7 +26,7 @@ public class AdministrationEmployee extends UniversityEmployee {
                 ", pesel='" + pesel + '\'' +
                 ", wiek=" + age +
                 ", plec=" + sex +
-                ", stanowisko=" + jobPosition() + '\'' +
+                ", stanowisko='" + jobPosition() + '\'' +
                 ", staz pracy=" + workExperience +
                 ", pensja=" + salary +
                 ", nadgodziny=" + overtime;

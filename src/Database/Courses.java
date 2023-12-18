@@ -5,41 +5,22 @@ import java.util.ArrayList;
 
 public class Courses implements Database{
     ArrayList<Course> courseArrayList = new ArrayList<>();
-    public Courses(){
-        courseArrayList.add(new Course("Administrowanie serwerami", "Maciej Wilk", 7));
-        courseArrayList.add(new Course("Programowanie strukturalne", "Maciej Wilk", 7));
-        courseArrayList.add(new Course("Bazy danych", "Henryk Mickiwicz", 7));
-        courseArrayList.add(new Course("Algebra liniowa", "Piotr Wysocki", 6));
-        courseArrayList.add(new Course("Tworzenie aplikacji", "Ewelina Dzik", 6));
-        courseArrayList.add(new Course("Analiza matematyczna", "Adam Niski", 6));
-        courseArrayList.add(new Course("Rozpoznawanie zagrozen", "Henryk Mickiwicz", 5));
-        courseArrayList.add(new Course("Aplikacje webowe", "Mariusz Kopytko", 5));
-        courseArrayList.add(new Course("Matematyka dyskretna", "Kacper Silny", 5));
-        courseArrayList.add(new Course("Logika", "Mariusz Slaby", 5));
-        courseArrayList.add(new Course("Cyberbezpieczenstwo", "Adam Slowacki", 5));
-        courseArrayList.add(new Course("Architektura komputerow", "Ewelina Cytryna", 4));
-        courseArrayList.add(new Course("Automatyka", "Pawel Melon", 4));
-        courseArrayList.add(new Course("Automatyka przemyslowa", "Tomasz Jodla", 4));
-        courseArrayList.add(new Course("Technika mikroprocesorowa", "Pawel Mydlo", 4));
-        courseArrayList.add(new Course("Zastosowania inzynierii", "Piotr Mydlo", 4));
-        courseArrayList.add(new Course("Struktury danych", "Pawel Kosciuch", 4));
-        courseArrayList.add(new Course("Techniki skutecznego programowania", "Robert Sienkiewicz", 4));
-        courseArrayList.add(new Course("Jezyk angielski", "Adrianna Dzik", 3));
-        courseArrayList.add(new Course("Jezyk niemiecki", "Justyna Wysoka", 3));
-        courseArrayList.add(new Course("Jezyk francuski", "Justyna Wysoka", 3));
-        courseArrayList.add(new Course("Jezyk hiszpanski", "Joanna Fiolek", 3));
-        courseArrayList.add(new Course("Przedsiebiorczosc", "Izabela Nowak", 2));
-        courseArrayList.add(new Course("Filozofia", "Mariusz Nowak", 2));}
+    public Courses(){}
+
+    public ArrayList<Course> getCourseArrayList() {
+        return courseArrayList;
+    }
 
     public void addRecord(Object ob){
         courseArrayList.add((Course) ob);
     }
 
-    public void displayDatabase(){
+    public void displayDatabase(Class<?> displayType){
 
         for (int i = 0; i < courseArrayList.size(); i++) {
 
-            System.out.println(i + " " +courseArrayList.get(i));
+            if(displayType.isInstance(courseArrayList.get(i)) && (courseArrayList.get(i) != null))
+                System.out.println("["+ i + "] " + courseArrayList.get(i));
         }
     }
     public ArrayList<Course> createSchedule(int[] indexArray){
