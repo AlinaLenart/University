@@ -1,11 +1,12 @@
 package Person;
-
-public abstract class Person {
-    protected String name;
-    protected String surname;
-    protected String pesel;
-    protected int age;
-    protected char sex;
+import java.io.Serializable;
+public abstract class Person implements Serializable{
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private String surname;
+    private String pesel;
+    private int age;
+    private char sex;
 
     public Person(String name, String surname, String pesel, int age, char sex){
         this.name = name;
@@ -14,7 +15,7 @@ public abstract class Person {
         this.age = age;
         this.sex = Character.toUpperCase(sex);
     }
-
+    public Person(){};
     public String getName() {
         return name;
     }

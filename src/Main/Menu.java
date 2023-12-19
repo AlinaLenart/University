@@ -10,33 +10,45 @@ import java.util.Scanner;
 public class Menu {
     private University uniDatabase;
     private Courses coursesDatabase;
+    private boolean exit = false;
     private Scanner scanner = new Scanner(System.in);
     public Menu(University uniDatabase, Courses coursesDatabase){
         this.uniDatabase = uniDatabase;
         this.coursesDatabase = coursesDatabase;
     }
+    public University getUniDatabase() {
+        return uniDatabase;
+    }
+
+    public Courses getCoursesDatabase() {
+        return coursesDatabase;
+    }
+
+    public boolean isExit() {
+        return exit;
+    }
 
     public void displayMenu(){
         clearConsole();
 
-        boolean exit = false;
 
         while(!exit) {
 
-            System.out.printf("%s\n%s\n%s\n%s\n",
+            System.out.printf("%s\n%s\n%s\n%s\n%s\n",
                     "1: Wyswietl baze",
                     "2: Wyszukaj informacje w bazie",
                     "3: Dodaj Osobe",
-                    "4: Dodaj Kurs");
+                    "4: Dodaj Kurs",
+                    "[-1]: Zakoncz");
 
             int choice = scanner.nextInt();
 
             switch (choice) {
 
-                case 1: //wyswietl
+                case 1:
                     displayChoice();
                     break;
-                case 2: //wyszukaj
+                case 2:
                     searchChoice();
                     break;
                 case 3:
@@ -47,6 +59,9 @@ public class Menu {
                     break;
                 case -1:
                     exit = true;
+                    scanner.close();
+                default:
+                    break;
             }
         }
     }

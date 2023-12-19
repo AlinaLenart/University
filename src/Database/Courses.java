@@ -1,9 +1,12 @@
 package Database;
+import Person.Person;
 import Student.Course;
 
+import java.io.*;
 import java.util.ArrayList;
 
-public class Courses implements Database{
+public class Courses implements Database, Serializable{
+    private static final long serialVersionUID = 2L;
     ArrayList<Course> courseArrayList = new ArrayList<>();
     public Courses(){}
 
@@ -14,6 +17,25 @@ public class Courses implements Database{
     public void addRecord(Object ob){
         courseArrayList.add((Course) ob);
     }
+
+
+    public void saveDatabaseToFile(String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(courseArrayList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void loadDatabaseFromFile(String filePath) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            courseArrayList = (ArrayList<Course>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void displayDatabase(Class<?> displayType){
 

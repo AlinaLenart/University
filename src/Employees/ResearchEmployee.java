@@ -2,7 +2,9 @@ package Employees;
 
 import Person.Person;
 
-public class ResearchEmployee extends UniversityEmployee {
+import java.io.Serializable;
+
+public class ResearchEmployee extends UniversityEmployee implements Serializable {
     private int releases;
 
     public ResearchEmployee(String name, String surname, String pesel, int age, char sex,
@@ -15,11 +17,11 @@ public class ResearchEmployee extends UniversityEmployee {
     @Override
     public String toString() {
         return "Pracownik Badawczo-Dydaktyczny : " +
-                "imie='" + name + '\'' +
-                ", nazwisko='" + surname + '\'' +
-                ", pesel='" + pesel + '\'' +
-                ", wiek=" + age +
-                ", plec=" + sex +
+                "imie='" + getName() + '\'' +
+                ", nazwisko='" + getSurname() + '\'' +
+                ", pesel='" + getPesel() + '\'' +
+                ", wiek=" + getAge() +
+                ", plec=" + getSex() +
                 ", stanowisko='" + jobPosition() + '\'' +
                 ", staz pracy=" + workExperience +
                 ", pensja=" + salary +

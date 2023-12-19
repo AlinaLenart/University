@@ -1,7 +1,9 @@
 package Student;
+import java.io.Serializable;
 import Person.*;
 import java.util.ArrayList;
-public class Student extends Person {
+public class Student extends Person implements Serializable  {
+    private static final long serialVersionUID = 4018073578401891246L;
     private int studentID;
     private int year;
     private boolean erasmus;
@@ -19,6 +21,7 @@ public class Student extends Person {
         this.remote = remote;
         this.courseList = courseList;
     }
+    public Student(){};
 
     public int getStudentID() {
         return studentID;
@@ -68,14 +71,14 @@ public class Student extends Person {
         this.courseList = courseList;
     }
 
-    
+    @Override
     public String toString() {
         return "Student: " +
-                "imie='" + name + '\'' +
-                ", nazwisko='" + surname + '\'' +
-                ", pesel='" + pesel + '\'' +
-                ", wiek=" + age +
-                ", plec=" + sex +
+                "imie='" + getName() + '\'' +
+                ", nazwisko='" + getSurname() + '\'' +
+                ", pesel='" + getPesel() + '\'' +
+                ", wiek=" + getAge() +
+                ", plec=" + getSex() +
                 ", nr indeksu=" + studentID +
                 ", rok=" + year +
                 ", erasmus=" + erasmus +

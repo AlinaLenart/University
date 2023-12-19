@@ -3,8 +3,11 @@ import Employees.*;
 import Person.Person;
 import Student.*;
 import java.util.ArrayList;
+import java.io.*;
+import Student.Student;
 
-public class University implements Database{
+public class University implements Database, Serializable {
+    private static final long serialVersionUID = 3L;
     private ArrayList<Person> personArrayList = new ArrayList<>();
 
     public University(){}
@@ -12,7 +15,20 @@ public class University implements Database{
 
         personArrayList.add((Person) ob);
     }
-
+    public void saveDatabaseToFile(String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(personArrayList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void loadDatabaseFromFile(String filePath) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            personArrayList = (ArrayList<Person>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     public void displayDatabase(Class<?> displayType){
 
         for (int i = 0; i < personArrayList.size(); i++) {
@@ -252,6 +268,7 @@ public class University implements Database{
             }
         }
         results(found);
+
     }
 
 

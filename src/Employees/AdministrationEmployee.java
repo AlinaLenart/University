@@ -1,5 +1,8 @@
 package Employees;
-public class AdministrationEmployee extends UniversityEmployee {
+
+import java.io.Serializable;
+
+public class AdministrationEmployee extends UniversityEmployee implements Serializable {
     private int overtime; //in hours
     public AdministrationEmployee(String name, String surname, String pesel, int age, char sex,
                                   int position, int workExperience, double salary,
@@ -21,11 +24,11 @@ public class AdministrationEmployee extends UniversityEmployee {
     @Override
     public String toString() {
         return "Pracownik Administracyjny : " +
-                "imie='" + name + '\'' +
-                ", nazwisko='" + surname + '\'' +
-                ", pesel='" + pesel + '\'' +
-                ", wiek=" + age +
-                ", plec=" + sex +
+                "imie='" + getName() + '\'' +
+                ", nazwisko='" + getSurname() + '\'' +
+                ", pesel='" + getPesel() + '\'' +
+                ", wiek=" + getAge() +
+                ", plec=" + getSex() +
                 ", stanowisko='" + jobPosition() + '\'' +
                 ", staz pracy=" + workExperience +
                 ", pensja=" + salary +
