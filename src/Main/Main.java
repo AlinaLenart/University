@@ -12,8 +12,7 @@ public class Main {
         Courses coursesDatabase = new Courses();
         uniDatabase.loadDatabaseFromFile("uniDatabase.ser");
         coursesDatabase.loadDatabaseFromFile("coursesDatabase.ser");
-        uniDatabase.displayDatabase(Person.class);
-        coursesDatabase.displayDatabase(Course.class);
+
         Menu menu = new Menu(uniDatabase, coursesDatabase);
         menu.displayMenu();
 
