@@ -1,5 +1,5 @@
 package Main;
-import Database.*;
+import Databases.*;
 import Person.*;
 import Employees.*;
 import Student.*;
@@ -29,11 +29,10 @@ public class Menu {
     }
 
     public void displayMenu(){
-        clearConsole();
-
 
         while(!exit) {
 
+            clearConsole();
             System.out.printf("%s\n%s\n%s\n%s\n%s\n",
                     "1: Wyswietl baze",
                     "2: Wyszukaj informacje w bazie",
@@ -218,7 +217,11 @@ public class Menu {
                 "2: Szukaj po nazwisku",
                 "3: Szukaj po numerze stanowiska",
                 "4: Szukaj po nazwie stanowiska",
-                "5: Szukaj po ilosci");
+                "5: Szukaj po stażu pracy",
+                "6: Szukaj po pensji",
+                "7: Szukaj po liczbie nadgodzin (tylko dla Pracowników Administracyjnych",
+                "8: Szukaj po ilosci publikacji (tylko dla Pracowników Badawczo-Dydaktycznych",
+                "9: Szukaj po ilosci dowolnej");
 
         int choice = scanner.nextInt();
         System.out.println("---- Wprowadz fraze do wyszukania: ----");
@@ -243,7 +246,23 @@ public class Menu {
                 break;
             case 5:
                 int ans5 = scanner.nextInt();
-                uniDatabase.searchByQuantity(ans5);
+                uniDatabase.searchByWorkExperience(ans5);
+                break;
+            case 6:
+                double ans6 = scanner.nextInt();
+                uniDatabase.searchBySalary(ans6);
+                break;
+            case 7:
+                int ans7 = scanner.nextInt();
+                uniDatabase.searchByOvertime(ans7);
+                break;
+            case 8:
+                int ans8 = scanner.nextInt();
+                uniDatabase.searchByReleases(ans8);
+                break;
+            case 9:
+                double ans9 = scanner.nextInt();
+                uniDatabase.searchByQuantity(ans9);
                 break;
 
         }
@@ -347,7 +366,7 @@ public class Menu {
                answers[i] = choice;
                i++;
            }
-        } while(choice >= 0);
+        } while(choice != -1);
 
         Student st = new Student(name, surname, pesel, age, sex, studentID, year, erasmus, degree, remote,
                 coursesDatabase.createSchedule(answers));

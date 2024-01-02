@@ -1,7 +1,5 @@
 package Main;
-import Student.*;
-import Database.*;
-import Person.Person;
+import Databases.*;
 
 
 public class Main {

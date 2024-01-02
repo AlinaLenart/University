@@ -1,5 +1,4 @@
-package Database;
-import Person.Person;
+package Databases;
 import Student.Course;
 
 import java.io.*;

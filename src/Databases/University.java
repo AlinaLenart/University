@@ -1,7 +1,7 @@
-package Database;
+package Databases;
 import Employees.*;
 import Person.Person;
-import Student.*;
+
 import java.util.ArrayList;
 import java.io.*;
 import Student.Student;
@@ -207,6 +207,93 @@ public class University implements Database, Serializable {
         }
        results(found);
     }
+    public void searchByWorkExperience(int workExperience){
+
+        int found = 0;
+
+        for (int i = 0; i < personArrayList.size(); i++){
+
+            if(personArrayList.get(i) instanceof UniversityEmployee){
+
+                UniversityEmployee employee = (UniversityEmployee) personArrayList.get(i);
+
+                if(employee.getWorkExperience() == workExperience) {
+
+                    System.out.println(personArrayList.get(i));
+                    found++;
+                }
+            }
+        }
+        results(found);
+    }
+    public void searchBySalary(double salary){
+
+        int found = 0;
+
+        for (int i = 0; i < personArrayList.size(); i++){
+
+            if(personArrayList.get(i) instanceof UniversityEmployee){
+
+                UniversityEmployee employee = (UniversityEmployee) personArrayList.get(i);
+
+                if(employee.getSalary() == salary) {
+
+                    System.out.println(personArrayList.get(i));
+                    found++;
+                }
+            }
+        }
+        results(found);
+    }
+    public void searchByOvertime(int overtime){
+
+        int found = 0;
+
+        for (int i = 0; i < personArrayList.size(); i++){
+
+            if(personArrayList.get(i) instanceof UniversityEmployee){
+
+                UniversityEmployee employee = (UniversityEmployee) personArrayList.get(i);
+
+                if(employee instanceof AdministrationEmployee){
+
+                    AdministrationEmployee employee1 = (AdministrationEmployee) employee;
+
+                    if(employee1.getOvertime() == overtime) {
+
+                        System.out.println(personArrayList.get(i));
+                        found++;
+                    }
+                }
+            }
+        }
+        results(found);
+    }
+    public void searchByReleases(int releases){
+
+        int found = 0;
+
+        for (int i = 0; i < personArrayList.size(); i++){
+
+            if(personArrayList.get(i) instanceof UniversityEmployee){
+
+                UniversityEmployee employee = (UniversityEmployee) personArrayList.get(i);
+
+                if(employee instanceof ResearchEmployee){
+
+                    ResearchEmployee employee1 = (ResearchEmployee) employee;
+
+                    if(employee1.getReleases() == releases) {
+
+                        System.out.println(personArrayList.get(i));
+                        found++;
+                    }
+                }
+            }
+        }
+        results(found);
+    }
+
     public void searchByStudentID(int studentID){
 
         int found = 0;
