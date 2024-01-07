@@ -1,8 +1,11 @@
 package Databases;
+
+import Comparators.*;
 import Student.Course;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Courses implements Database, Serializable{
     private static final long serialVersionUID = 2L;
@@ -41,7 +44,7 @@ public class Courses implements Database, Serializable{
         for (int i = 0; i < courseArrayList.size(); i++) {
 
             if(displayType.isInstance(courseArrayList.get(i)) && (courseArrayList.get(i) != null))
-                System.out.println("["+ i + "] " + courseArrayList.get(i));
+                System.out.println("["+ (i + 1) + "] " + courseArrayList.get(i));
         }
     }
     public ArrayList<Course> createSchedule(int[] indexArray){
@@ -49,12 +52,12 @@ public class Courses implements Database, Serializable{
         ArrayList<Course> studentSchedule = new ArrayList<>();
 
         for (int i = 0; i < indexArray.length; i++) {
+            int index = indexArray[i];
 
-            if(indexArray[i] < 0 || indexArray[i] > (courseArrayList.size() - 1))
-                System.out.println("Podano bledny numer indeksu");
+            if(index <= courseArrayList.size() && index > 0 && !(studentSchedule.contains(courseArrayList.get(index - 1)))) {
+                studentSchedule.add(courseArrayList.get(index - 1));
+            }
 
-            else
-                studentSchedule.add(courseArrayList.get(indexArray[i]));
         }
 
         return studentSchedule;
@@ -114,5 +117,19 @@ public class Courses implements Database, Serializable{
         results(found);
     }
 
+    public void sortByTeacherSurname(){
+
+        Comparator<Course> teacherSurnameComparator = new TeacherSurnameComparator();
+
+        courseArrayList.sort(teacherSurnameComparator);
+
+    }
+    public void sortByEcts(){
+
+        Comparator<Course> ectsComparator = new EctsComparator();
+
+        courseArrayList.sort(ectsComparator);
+
+    }
 
 }
