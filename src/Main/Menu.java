@@ -35,12 +35,15 @@ public class Menu {
         while(!exit) {
 
             clearConsole();
-            System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n",
+            System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
+
                     "1: Wyswietl baze",
                     "2: Wyszukaj informacje w bazie",
                     "3: Dodaj Osobe",
                     "4: Dodaj Kurs",
                     "5: Usun dane",
+                    "6: Sortuj baze",
+
                     "[-1]: Zakoncz");
 
             int choice = scanner.nextInt();
@@ -59,8 +62,12 @@ public class Menu {
                 case 4:
                     addCourse();
                     break;
+
                 case 5:
                     delOptions();
+                     break;
+                case 6:
+                    sortChoice();
                     break;
                 case -1:
                     exit = true;
@@ -386,15 +393,15 @@ public class Menu {
         int choice = 0;
         System.out.println("*Aby przerwac dodawanie kursow wpisz -1*");
 
+        int i = 0;
+
         do{
+
             choice = scanner.nextInt();
-            int i = 0;
 
-           if(choice >= 0){
+            answers[i] = choice;
+            i++;
 
-               answers[i] = choice;
-               i++;
-           }
         } while(choice != -1);
 
         Student st = new Student(name, surname, pesel, age, sex, studentID, year, erasmus, degree, remote,
@@ -541,6 +548,73 @@ public class Menu {
 
     }
 
+    public void sortChoice(){
+        clearConsole();
+
+        System.out.printf("%s\n%s\n",
+                "1: Sortuj baze Osob",
+                "2: Sortuj baze Kursow");
+
+        int choice = scanner.nextInt();
+
+        switch (choice){
+            case 1:
+                sortPersonDatabase();
+                break;
+            case 2:
+                sortCoursesDatabase();
+                break;
+            default:
+                displayMenu();
+                break;
+        }
+    }
+    public void sortPersonDatabase(){
+        clearConsole();
+
+        System.out.printf("%s\n%s\n%s\n",
+                "1: Sortuj po nazwisku",
+                "2: Sortuj po nazwisku i imieniu",
+                "3: Sortuj po nazwisku i wieku");
+
+        int choice = scanner.nextInt();
+
+        switch (choice){
+            case 1:
+                uniDatabase.sortBySurname();
+                break;
+            case 2:
+                uniDatabase.sortBySurnameThenName();
+                break;
+            case 3:
+                uniDatabase.sortBySurnameThenAge();
+                break;
+            default:
+                sortChoice();
+                break;
+        }
+    }
+    public void sortCoursesDatabase(){
+        clearConsole();
+
+        System.out.printf("%s\n%s\n",
+                "1: Sortuj po nazwisku prowadzacego",
+                "2: Sortuj po punktach ECTS");
+
+        int choice = scanner.nextInt();
+
+        switch (choice){
+            case 1:
+                coursesDatabase.sortByTeacherSurname();
+                break;
+            case 2:
+                coursesDatabase.sortByEcts();
+                break;
+            default:
+                sortChoice();
+                break;
+        }
+    }
 
 
 

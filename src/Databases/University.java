@@ -4,7 +4,10 @@ import Person.Person;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Comparator;
+
 import Student.Student;
+import Comparators.*;
 
 public class University implements Database, Serializable {
     private static final long serialVersionUID = 3L;
@@ -343,7 +346,6 @@ public class University implements Database, Serializable {
         }
         return studentByCourseResults;
     }
-
     public void displaySearchRecord(ArrayList<Person> searchResults){
 
         if (searchResults.isEmpty()){
@@ -352,7 +354,6 @@ public class University implements Database, Serializable {
         else {
 
             for (int i = 0; i < searchResults.size(); i++) {
-
                 System.out.println((i + 1) + ". " + searchResults.get(i));
             }
 
@@ -369,17 +370,33 @@ public class University implements Database, Serializable {
         // TODO notifications as a interface
     }
 
+    public void sortBySurname(){
 
+        Comparator<Person> surnameComparator = new SurnameComparator();
 
+        personArrayList.sort(surnameComparator);
 
+    }
 
+    public void sortBySurnameThenName(){
 
+        Comparator<Person> surnameComparator = new SurnameComparator();
+        Comparator<Person> nameComparator = new NameComparator();
 
+        Comparator<Person> surnameThenNameComparator = surnameComparator.thenComparing(nameComparator);
 
+        personArrayList.sort(surnameThenNameComparator);
 
+    }
+    public void sortBySurnameThenAge(){
 
+        Comparator<Person> surnameComparator = new SurnameComparator();
+        Comparator<Person> ageComparator = new AgeComparator();
 
+        Comparator<Person> surnameThenAgeComparator = surnameComparator.thenComparing(ageComparator);
 
+        personArrayList.sort(surnameThenAgeComparator);
 
+    }
 
 }
