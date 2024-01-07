@@ -12,7 +12,6 @@ import Comparators.*;
 public class University implements Database, Serializable {
     private static final long serialVersionUID = 3L;
     private ArrayList<Person> personArrayList = new ArrayList<>();
-
     public University(){}
     public void addRecord(Object ob){
 
@@ -37,7 +36,7 @@ public class University implements Database, Serializable {
         for (int i = 0; i < personArrayList.size(); i++) {
 
             if(displayType.isInstance(personArrayList.get(i)) && (personArrayList.get(i) != null))
-                System.out.println(personArrayList.get(i));
+                System.out.println(i + " " + personArrayList.get(i));
         }
     }
     public void results(int found){
@@ -48,9 +47,9 @@ public class University implements Database, Serializable {
             System.out.println("Znaleziono "+ found +" wynikow pasujacych do kryteriow");
     }
 
-        public void searchByStudentName (String regex){
+        public ArrayList<Person> searchByStudentName (String regex){
 
-        int found = 0;
+            ArrayList<Person> studentsNameResult = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -60,17 +59,16 @@ public class University implements Database, Serializable {
                 String element = st.getName();
 
                 if (Regex.stringSearch(regex, element)) {
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    studentsNameResult.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return studentsNameResult;
     }
 
-    public void searchByEmployeeName(String regex){
+    public ArrayList<Person> searchByEmployeeName(String regex){
 
-        int found = 0;
+        ArrayList<Person> employeeNameResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -81,16 +79,15 @@ public class University implements Database, Serializable {
 
                 if (Regex.stringSearch(regex, element)) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    employeeNameResults.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return employeeNameResults;
     }
-    public void searchByStudentSurname(String regex){
+    public ArrayList<Person> searchByStudentSurname(String regex){
 
-        int found = 0;
+        ArrayList<Person> studentSurnameResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -101,16 +98,15 @@ public class University implements Database, Serializable {
 
                 if (Regex.stringSearch(regex, element)) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    studentSurnameResults.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return studentSurnameResults;
     }
-    public void searchByEmployeeSurname(String regex){
+    public ArrayList<Person> searchByEmployeeSurname(String regex){
 
-        int found = 0;
+        ArrayList<Person> employeeSurnameResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -121,17 +117,16 @@ public class University implements Database, Serializable {
 
                 if (Regex.stringSearch(regex, element)) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    employeeSurnameResults.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return employeeSurnameResults;
     }
 
-    public void searchByPositionID(int position){
+    public ArrayList<Person> searchByPositionID(int position){
 
-        int found = 0;
+        ArrayList<Person> employeeIDResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -141,16 +136,15 @@ public class University implements Database, Serializable {
 
                 if(emp.getPosition() == position) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    employeeIDResults.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return employeeIDResults;
     }
-    public void searchByPositionName(String regex){
+    public ArrayList<Person> searchByPositionName(String regex){
 
-        int found = 0;
+        ArrayList<Person> employeePositionResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -162,16 +156,16 @@ public class University implements Database, Serializable {
 
                 if(Regex.stringSearch(regex, element)) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    employeePositionResults.add(personArrayList.get(i));
+
                 }
             }
         }
-        results(found);
+        return employeePositionResults;
     }
-    public void searchByQuantity(double quantity){
+    public ArrayList<Person> searchByQuantity(double quantity){
 
-        int found = 0;
+        ArrayList<Person> employeeQuantityResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -183,8 +177,7 @@ public class University implements Database, Serializable {
 
                 if(employee.getWorkExperience() == converted || employee.getSalary() == quantity) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    employeeQuantityResults.add(personArrayList.get(i));
                 }
                 else if(employee instanceof AdministrationEmployee){
 
@@ -192,8 +185,7 @@ public class University implements Database, Serializable {
 
                     if(employee1.getOvertime() == converted) {
 
-                        System.out.println(personArrayList.get(i));
-                        found++;
+                        employeeQuantityResults.add(personArrayList.get(i));
                     }
                 }
                 else if(employee instanceof ResearchEmployee){
@@ -202,17 +194,16 @@ public class University implements Database, Serializable {
 
                     if(employee1.getReleases() == converted) {
 
-                        System.out.println(personArrayList.get(i));
-                        found++;
+                        employeeQuantityResults.add(personArrayList.get(i));
                     }
                 }
             }
         }
-       results(found);
+       return employeeQuantityResults;
     }
-    public void searchByWorkExperience(int workExperience){
+    public ArrayList<Person> searchByWorkExperience(int workExperience){
 
-        int found = 0;
+        ArrayList<Person> employeeWorkExperienceResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -222,16 +213,15 @@ public class University implements Database, Serializable {
 
                 if(employee.getWorkExperience() == workExperience) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    employeeWorkExperienceResults.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return employeeWorkExperienceResults;
     }
-    public void searchBySalary(double salary){
+    public ArrayList<Person> searchBySalary(double salary){
 
-        int found = 0;
+        ArrayList<Person> employeeSalaryResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -241,16 +231,15 @@ public class University implements Database, Serializable {
 
                 if(employee.getSalary() == salary) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    employeeSalaryResults.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return employeeSalaryResults;
     }
-    public void searchByOvertime(int overtime){
+    public ArrayList<Person> searchByOvertime(int overtime){
 
-        int found = 0;
+        ArrayList<Person> employeeOvertimeResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -264,17 +253,16 @@ public class University implements Database, Serializable {
 
                     if(employee1.getOvertime() == overtime) {
 
-                        System.out.println(personArrayList.get(i));
-                        found++;
+                        employeeOvertimeResults.add(personArrayList.get(i));
                     }
                 }
             }
         }
-        results(found);
+        return employeeOvertimeResults;
     }
-    public void searchByReleases(int releases){
+    public ArrayList<Person> searchByReleases(int releases){
 
-        int found = 0;
+        ArrayList<Person> employeeByReleaseResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -288,18 +276,17 @@ public class University implements Database, Serializable {
 
                     if(employee1.getReleases() == releases) {
 
-                        System.out.println(personArrayList.get(i));
-                        found++;
+                        employeeByReleaseResults.add(personArrayList.get(i));
                     }
                 }
             }
         }
-        results(found);
+        return employeeByReleaseResults;
     }
 
-    public void searchByStudentID(int studentID){
+    public ArrayList<Person> searchByStudentID(int studentID){
 
-        int found = 0;
+        ArrayList<Person> studentsIDResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -309,16 +296,15 @@ public class University implements Database, Serializable {
 
                 if(st.getStudentID() == studentID) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    studentsIDResults.add(personArrayList.get(i));
                 }
             }
         }
-        results(found);
+        return studentsIDResults;
     }
-    public void searchByYear(int year){
+    public ArrayList<Person> searchByYear(int year){
 
-        int found = 0;
+        ArrayList<Person> studentsYearResults = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++){
 
@@ -328,16 +314,17 @@ public class University implements Database, Serializable {
 
                 if(st.getYear() == year) {
 
-                    System.out.println(personArrayList.get(i));
-                    found++;
+                    studentsYearResults.add(personArrayList.get(i));
+
                 }
             }
         }
-        results(found);
+        return studentsYearResults;
     }
-    public void searchByCourseName(String regex){
+    public ArrayList<Person> searchByCourseName(String regex){
 
-        int found = 0;
+        ArrayList<Person> studentByCourseResults = new ArrayList<Person>();
+        ArrayList<Integer> foundIndexes = new ArrayList<>();
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -351,14 +338,36 @@ public class University implements Database, Serializable {
 
                     if (Regex.stringSearch(regex, element)) {
 
-                        System.out.println(personArrayList.get(i));
-                        found++;
+                        studentByCourseResults.add(personArrayList.get(i));
+                        foundIndexes.add(i);
                     }
                 }
             }
         }
-        results(found);
+        return studentByCourseResults;
+    }
+    public void displaySearchRecord(ArrayList<Person> searchResults){
 
+        if (searchResults.isEmpty()){
+            System.out.println("Brak wynikow wyszukiwania");
+        }
+        else {
+
+            for (int i = 0; i < searchResults.size(); i++) {
+                System.out.println((i + 1) + ". " + searchResults.get(i));
+            }
+
+        }
+    }
+
+    public void delRecord(ArrayList<Person> searchResults, int index){
+
+        //TODO notifications
+        if (index < 0 || index > searchResults.size()){
+            System.out.println("Podano zly indeks, prosze sprobowac ponownie...");
+        }
+        else personArrayList.remove(searchResults.get(index - 1));
+        // TODO notifications as a interface
     }
 
     public void sortBySurname(){
@@ -389,20 +398,5 @@ public class University implements Database, Serializable {
         personArrayList.sort(surnameThenAgeComparator);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

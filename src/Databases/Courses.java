@@ -117,6 +117,7 @@ public class Courses implements Database, Serializable{
         results(found);
     }
 
+
     public void sortByTeacherSurname(){
 
         Comparator<Course> teacherSurnameComparator = new TeacherSurnameComparator();
@@ -133,3 +134,5 @@ public class Courses implements Database, Serializable{
     }
 
 }
+    //TODO displaying search results with indexes
+    //TODO deleting specified objects from courses like in university
