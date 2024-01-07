@@ -113,6 +113,7 @@ public class Courses implements Database, Serializable{
         }
         results(found);
     }
-
+    //TODO displaying search results with indexes
+    //TODO deleting specified objects from courses like in university
 
 }

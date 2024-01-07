@@ -4,12 +4,14 @@ import Person.*;
 import Employees.*;
 import Student.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Menu {
     private University uniDatabase;
     private Courses coursesDatabase;
+    private ArrayList<Person> delPersonRecords;
     private boolean exit = false;
     private Scanner scanner = new Scanner(System.in);
     public Menu(University uniDatabase, Courses coursesDatabase){
@@ -33,11 +35,12 @@ public class Menu {
         while(!exit) {
 
             clearConsole();
-            System.out.printf("%s\n%s\n%s\n%s\n%s\n",
+            System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n",
                     "1: Wyswietl baze",
                     "2: Wyszukaj informacje w bazie",
                     "3: Dodaj Osobe",
                     "4: Dodaj Kurs",
+                    "5: Usun dane",
                     "[-1]: Zakoncz");
 
             int choice = scanner.nextInt();
@@ -55,6 +58,9 @@ public class Menu {
                     break;
                 case 4:
                     addCourse();
+                    break;
+                case 5:
+                    delOptions();
                     break;
                 case -1:
                     exit = true;
@@ -187,26 +193,40 @@ public class Menu {
 
         int choice = scanner.nextInt();
 
-        System.out.println("---- Wprowadz fraze do wyszukania: ----");
+        System.out.println("---- Wprowadź fraze do wyszukania: ----");
         String s = scanner.nextLine();
 
         switch (choice){
             case 1:
                 String ans = scanner.nextLine();
-                uniDatabase.searchByStudentName(ans);
+                ArrayList<Person> studentName = uniDatabase.searchByStudentName(ans);
+                uniDatabase.displaySearchRecord(studentName);
+                delPersonRecords = studentName;
                 break;
             case 2:
                 String ans2 = scanner.nextLine();
-                uniDatabase.searchByStudentSurname(ans2);
+                ArrayList<Person> studentsSurname = uniDatabase.searchByStudentSurname(ans2);
+                uniDatabase.displaySearchRecord(studentsSurname);
+                delPersonRecords = studentsSurname;
+                break;
             case 3:
                 int ans3 = scanner.nextInt();
-                uniDatabase.searchByStudentID(ans3);
+                ArrayList<Person> studentsID = uniDatabase.searchByStudentID(ans3);
+                uniDatabase.displaySearchRecord(studentsID);
+                delPersonRecords = studentsID;
+                break;
             case 4:
                 int ans4 = scanner.nextInt();
-                uniDatabase.searchByYear(ans4);
+                ArrayList<Person> studentsYear = uniDatabase.searchByYear(ans4);
+                uniDatabase.displaySearchRecord(studentsYear);
+                delPersonRecords = studentsYear;
+                break;
             case 5:
                 String ans5 = scanner.nextLine();
-                uniDatabase.searchByCourseName(ans5);
+                ArrayList<Person> studentsCourseName = uniDatabase.searchByCourseName(ans5);
+                uniDatabase.displaySearchRecord(studentsCourseName);
+                delPersonRecords = studentsCourseName;
+                break;
         }
     }
 
@@ -230,39 +250,48 @@ public class Menu {
         switch (choice){
             case 1:
                 String ans = scanner.nextLine();
-                uniDatabase.searchByEmployeeName(ans);
+                ArrayList<Person> employeeName = uniDatabase.searchByEmployeeName(ans);
+                uniDatabase.displaySearchRecord(employeeName);
                 break;
             case 2:
                 String ans2 = scanner.nextLine();
-                uniDatabase.searchByEmployeeSurname(ans2);
+                ArrayList<Person> employeeSurname = uniDatabase.searchByEmployeeSurname(ans2);
+                uniDatabase.displaySearchRecord(employeeSurname);
                 break;
             case 3:
                 int ans3 = scanner.nextInt();
-                uniDatabase.searchByPositionID(ans3);
+                ArrayList<Person> employeeID = uniDatabase.searchByPositionID(ans3);
+                uniDatabase.displaySearchRecord(employeeID);
                 break;
             case 4:
                 String ans4 = scanner.nextLine();
-                uniDatabase.searchByPositionName(ans4);
+                ArrayList<Person> employeePosition = uniDatabase.searchByPositionName(ans4);
+                uniDatabase.displaySearchRecord(employeePosition);
                 break;
             case 5:
                 int ans5 = scanner.nextInt();
-                uniDatabase.searchByWorkExperience(ans5);
+                ArrayList<Person> employeeExperience = uniDatabase.searchByWorkExperience(ans5);
+                uniDatabase.displaySearchRecord(employeeExperience);
                 break;
             case 6:
                 double ans6 = scanner.nextInt();
-                uniDatabase.searchBySalary(ans6);
+                ArrayList<Person> employeeSalary = uniDatabase.searchBySalary(ans6);
+                uniDatabase.displaySearchRecord(employeeSalary);
                 break;
             case 7:
                 int ans7 = scanner.nextInt();
-                uniDatabase.searchByOvertime(ans7);
+                ArrayList<Person> employeeOvertime = uniDatabase.searchByOvertime(ans7);
+                uniDatabase.displaySearchRecord(employeeOvertime);
                 break;
             case 8:
                 int ans8 = scanner.nextInt();
-                uniDatabase.searchByReleases(ans8);
+                ArrayList<Person> employeeRelease = uniDatabase.searchByReleases(ans8);
+                uniDatabase.displaySearchRecord(employeeRelease);
                 break;
             case 9:
                 double ans9 = scanner.nextInt();
-                uniDatabase.searchByQuantity(ans9);
+                ArrayList<Person> emplyeeQuantity = uniDatabase.searchByQuantity(ans9);
+                uniDatabase.displaySearchRecord(emplyeeQuantity);
                 break;
 
         }
@@ -502,6 +531,14 @@ public class Menu {
 
         System.out.println("\n--- Dodales Kurs o nastepujacych danych: ---");
         System.out.println(c + "\n");
+    }
+    public void delOptions(){
+
+        searchChoice();
+        System.out.print("Podaj indeks, ktory chcesz usunac: ");
+        int index = scanner.nextInt();
+        uniDatabase.delRecord(delPersonRecords, index);
+
     }
 
 
