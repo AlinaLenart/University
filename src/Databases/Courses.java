@@ -1,15 +1,18 @@
 package Databases;
 
-import Comparators.*;
-import Student.Course;
+
+import SortingCourses.*;
+import Student.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
+
 
 public class Courses implements Database, Serializable{
     private static final long serialVersionUID = 2L;
     ArrayList<Course> courseArrayList = new ArrayList<>();
+    private CoursesStrategy sortingStrategy;
+
     public Courses(){}
 
     public ArrayList<Course> getCourseArrayList() {
@@ -118,20 +121,19 @@ public class Courses implements Database, Serializable{
     }
 
 
-    public void sortByTeacherSurname(){
+    public void setSortingStrategy(CoursesStrategy sortingStrategy) {
 
-        Comparator<Course> teacherSurnameComparator = new TeacherSurnameComparator();
+        this.sortingStrategy = sortingStrategy;
+    }
 
-        courseArrayList.sort(teacherSurnameComparator);
+    public void sortByChosenStrategy() {
+
+        if(sortingStrategy != null)
+            sortingStrategy.sort(courseArrayList);
 
     }
-    public void sortByEcts(){
 
-        Comparator<Course> ectsComparator = new EctsComparator();
 
-        courseArrayList.sort(ectsComparator);
-
-    }
 
 }
     //TODO displaying search results with indexes

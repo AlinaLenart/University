@@ -1,7 +1,10 @@
 package Main;
+
 import Databases.*;
 import Person.*;
 import Employees.*;
+import SortingCourses.*;
+import SortingUniversity.*;
 import Student.*;
 
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ public class Menu {
     private ArrayList<Person> delPersonRecords;
     private boolean exit = false;
     private Scanner scanner = new Scanner(System.in);
+
     public Menu(University uniDatabase, Courses coursesDatabase){
         this.uniDatabase = uniDatabase;
         this.coursesDatabase = coursesDatabase;
@@ -581,13 +585,18 @@ public class Menu {
 
         switch (choice){
             case 1:
-                uniDatabase.sortBySurname();
+                uniDatabase.setSortingStrategy(new SortBySurname());
+                uniDatabase.sortByChosenStrategy();
                 break;
             case 2:
-                uniDatabase.sortBySurnameThenName();
+                uniDatabase.setSortingStrategy(new SortBySurnameThenName());
+                uniDatabase.sortByChosenStrategy();
                 break;
             case 3:
-                uniDatabase.sortBySurnameThenAge();
+//                SortingStrategy sortBySurnameThenAge = new SortBySurnameThenAge();
+//                uniDatabase.setSortingStrategy(sortBySurnameThenAge); skrocone
+                uniDatabase.setSortingStrategy(new SortBySurnameThenAge());
+                uniDatabase.sortByChosenStrategy();
                 break;
             default:
                 sortChoice();
@@ -605,10 +614,12 @@ public class Menu {
 
         switch (choice){
             case 1:
-                coursesDatabase.sortByTeacherSurname();
+                coursesDatabase.setSortingStrategy(new SortByTeacherSurname());
+                coursesDatabase.sortByChosenStrategy();
                 break;
             case 2:
-                coursesDatabase.sortByEcts();
+                coursesDatabase.setSortingStrategy(new SortByEcts());
+                coursesDatabase.sortByChosenStrategy();
                 break;
             default:
                 sortChoice();

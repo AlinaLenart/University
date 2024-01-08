@@ -1,9 +1,19 @@
-package Comparators;
+package SortingCourses;
+
 import Student.*;
+
+import java.util.ArrayList;
 import java.util.Comparator;
 
-public class TeacherSurnameComparator implements Comparator<Course> {
+public class SortByTeacherSurname implements CoursesStrategy, Comparator<Course>{
 
+
+    public void sort(ArrayList<Course> coursesDatabase){
+
+        coursesDatabase.sort(this);
+    }
+
+    @Override
     public int compare(Course p1, Course p2) {
 
         String t1 = p1.getTeacher();
