@@ -9,13 +9,31 @@ import java.util.Comparator;
 import Student.Student;
 import Comparators.*;
 
-public class University implements Database, Serializable {
+public class University implements Database, DatabaseSubject, Serializable {
     private static final long serialVersionUID = 3L;
     private ArrayList<Person> personArrayList = new ArrayList<>();
+    private transient ArrayList<DatabaseObserver> observers = new ArrayList<>();
     public University(){}
+    @Override
+    public void attach(DatabaseObserver observer){
+        if (!observers.contains(observer))
+            observers.add(observer);
+    }
+    @Override
+    public void detach(DatabaseObserver observer){
+        observers.remove(observer);
+    }
+    @Override
+    public void notifyObservers(DatabaseChangeEvent event){
+        for (DatabaseObserver observer : observers){
+            observer.update(event);
+        }
+    }
     public void addRecord(Object ob){
 
         personArrayList.add((Person) ob);
+        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.ADD, ob);
+        notifyObservers(event);
     }
     public void saveDatabaseToFile(String filePath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
@@ -362,12 +380,12 @@ public class University implements Database, Serializable {
 
     public void delRecord(ArrayList<Person> searchResults, int index){
 
-        //TODO notifications
         if (index < 0 || index > searchResults.size()){
             System.out.println("Podano zly indeks, prosze sprobowac ponownie...");
         }
         else personArrayList.remove(searchResults.get(index - 1));
-        // TODO notifications as a interface
+        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.DELETE, searchResults.get(index - 1));
+        notifyObservers(event);
     }
 
     public void sortBySurname(){

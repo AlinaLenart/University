@@ -8,17 +8,34 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Courses implements Database, Serializable{
+public class Courses implements Database, DatabaseSubject,Serializable{
     private static final long serialVersionUID = 2L;
     ArrayList<Course> courseArrayList = new ArrayList<>();
+    private transient ArrayList<DatabaseObserver> observers = new ArrayList<>();
     public Courses(){}
-
+    @Override
+    public void attach(DatabaseObserver observer){
+        if (!observers.contains(observer))
+            observers.add(observer);
+    }
+    @Override
+    public void detach(DatabaseObserver observer){
+        observers.remove(observer);
+    }
+    @Override
+    public void notifyObservers(DatabaseChangeEvent event){
+        for (DatabaseObserver observer : observers){
+            observer.update(event);
+        }
+    }
     public ArrayList<Course> getCourseArrayList() {
         return courseArrayList;
     }
 
     public void addRecord(Object ob){
         courseArrayList.add((Course) ob);
+        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.ADD, ob);
+        notifyObservers(event);
     }
 
 
@@ -137,7 +154,8 @@ public class Courses implements Database, Serializable{
         }
 
         else courseArrayList.remove(searchResults.get(index - 1));
-        // TODO notifications as a interface
+        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.DELETE, searchResults.get(index - 1));
+        notifyObservers(event);
     }
 
     public void sortByTeacherSurname(){

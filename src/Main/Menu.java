@@ -415,8 +415,8 @@ public class Menu {
                 coursesDatabase.createSchedule(answers));
         uniDatabase.addRecord(st);
 
-        System.out.println("\n--- Dodales studenta o nastepujacych danych: ---");
-        System.out.println(st + "\n");
+//        System.out.println("\n--- Dodales studenta o nastepujacych danych: ---");
+//        System.out.println(st + "\n");
 
     }
     public void addEmployee(){
@@ -481,8 +481,8 @@ public class Menu {
         UniversityEmployee adm = new AdministrationEmployee(name, surname, pesel, age, sex, position, workExperience, salary, overtime);
         uniDatabase.addRecord(adm);
 
-        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
-        System.out.println(adm + "\n");
+//        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
+//        System.out.println(adm + "\n");
 
     }
     public void addResearchEmployee() {
@@ -524,8 +524,8 @@ public class Menu {
         UniversityEmployee dyd = new ResearchEmployee(name, surname, pesel, age, sex, position, workExperience, salary, releases);
         uniDatabase.addRecord(dyd);
 
-        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
-        System.out.println(dyd + "\n");
+//        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
+//        System.out.println(dyd + "\n");
     }
     public void addCourse(){
         System.out.println("--- Wprowadz dane aby dodac Kurs do bazy ---");
@@ -543,8 +543,8 @@ public class Menu {
         Course c = new Course(name, teacher, ects);
         coursesDatabase.addRecord(c);
 
-        System.out.println("\n--- Dodales Kurs o nastepujacych danych: ---");
-        System.out.println(c + "\n");
+//        System.out.println("\n--- Dodales Kurs o nastepujacych danych: ---");
+//        System.out.println(c + "\n");
     }
     public void delOptions(){
 
@@ -640,11 +640,6 @@ public class Menu {
                 break;
         }
     }
-
-
-
-
-
 
 
     public static void clearConsole() {
