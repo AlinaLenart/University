@@ -3,15 +3,18 @@ package Databases;
 import Comparators.*;
 import Person.Person;
 import Student.Course;
-
+import SortingCourses.*;
+import Student.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
+
 
 public class Courses implements Database, DatabaseSubject,Serializable{
     private static final long serialVersionUID = 2L;
     ArrayList<Course> courseArrayList = new ArrayList<>();
     private transient ArrayList<DatabaseObserver> observers = new ArrayList<>();
+    private CoursesStrategy sortingStrategy;
+
     public Courses(){}
     @Override
     public void attach(DatabaseObserver observer){
@@ -158,20 +161,19 @@ public class Courses implements Database, DatabaseSubject,Serializable{
         notifyObservers(event);
     }
 
-    public void sortByTeacherSurname(){
+    public void setSortingStrategy(CoursesStrategy sortingStrategy) {
 
-        Comparator<Course> teacherSurnameComparator = new TeacherSurnameComparator();
+        this.sortingStrategy = sortingStrategy;
+    }
 
-        courseArrayList.sort(teacherSurnameComparator);
+    public void sortByChosenStrategy() {
+
+        if(sortingStrategy != null)
+            sortingStrategy.sort(courseArrayList);
 
     }
-    public void sortByEcts(){
 
-        Comparator<Course> ectsComparator = new EctsComparator();
 
-        courseArrayList.sort(ectsComparator);
-
-    }
 
 }
     //TODO deleting specified objects from courses like in university

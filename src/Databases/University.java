@@ -1,18 +1,19 @@
 package Databases;
 import Employees.*;
-import Person.Person;
+import Person.*;
 
 import java.util.ArrayList;
 import java.io.*;
-import java.util.Comparator;
 
-import Student.Student;
-import Comparators.*;
+import Student.*;
+import SortingUniversity.*;
+
 
 public class University implements Database, DatabaseSubject, Serializable {
     private static final long serialVersionUID = 3L;
     private ArrayList<Person> personArrayList = new ArrayList<>();
     private transient ArrayList<DatabaseObserver> observers = new ArrayList<>();
+    private UniversityStrategy sortingStrategy;
     public University(){}
     @Override
     public void attach(DatabaseObserver observer){
@@ -388,33 +389,18 @@ public class University implements Database, DatabaseSubject, Serializable {
         notifyObservers(event);
     }
 
-    public void sortBySurname(){
 
-        Comparator<Person> surnameComparator = new SurnameComparator();
+    public void setSortingStrategy(UniversityStrategy sortingStrategy) {
 
-        personArrayList.sort(surnameComparator);
+        this.sortingStrategy = sortingStrategy;
+    }
+
+    public void sortByChosenStrategy() {
+
+        if(sortingStrategy != null)
+           sortingStrategy.sort(personArrayList);
 
     }
 
-    public void sortBySurnameThenName(){
-
-        Comparator<Person> surnameComparator = new SurnameComparator();
-        Comparator<Person> nameComparator = new NameComparator();
-
-        Comparator<Person> surnameThenNameComparator = surnameComparator.thenComparing(nameComparator);
-
-        personArrayList.sort(surnameThenNameComparator);
-
-    }
-    public void sortBySurnameThenAge(){
-
-        Comparator<Person> surnameComparator = new SurnameComparator();
-        Comparator<Person> ageComparator = new AgeComparator();
-
-        Comparator<Person> surnameThenAgeComparator = surnameComparator.thenComparing(ageComparator);
-
-        personArrayList.sort(surnameThenAgeComparator);
-
-    }
 
 }
