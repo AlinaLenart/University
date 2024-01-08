@@ -12,6 +12,7 @@ public class Menu {
     private University uniDatabase;
     private Courses coursesDatabase;
     private ArrayList<Person> delPersonRecords;
+    private ArrayList<Course> delCourseRecords;
     private boolean exit = false;
     private Scanner scanner = new Scanner(System.in);
     public Menu(University uniDatabase, Courses coursesDatabase){
@@ -297,8 +298,8 @@ public class Menu {
                 break;
             case 9:
                 double ans9 = scanner.nextInt();
-                ArrayList<Person> emplyeeQuantity = uniDatabase.searchByQuantity(ans9);
-                uniDatabase.displaySearchRecord(emplyeeQuantity);
+                ArrayList<Person> employeeQuantity = uniDatabase.searchByQuantity(ans9);
+                uniDatabase.displaySearchRecord(employeeQuantity);
                 break;
 
         }
@@ -318,15 +319,21 @@ public class Menu {
         switch (choice){
             case 1:
                 String ans = scanner.nextLine();
-                coursesDatabase.searchByName(ans);
+                ArrayList<Course> coursesName = coursesDatabase.searchByName(ans);
+                coursesDatabase.displaySearchRecord(coursesName);
+                delCourseRecords = coursesName;
                 break;
             case 2:
                 String ans2 = scanner.nextLine();
-                coursesDatabase.searchByTeacher(ans2);
+                ArrayList<Course> coursesTeacher = coursesDatabase.searchByName(ans2);
+                coursesDatabase.displaySearchRecord(coursesTeacher);
+                delCourseRecords = coursesTeacher;
                 break;
             case 3:
                 int ans3 = scanner.nextInt();
-                coursesDatabase.searchByEcts(ans3);
+                ArrayList<Course> coursesEcts = coursesDatabase.searchByEcts(ans3);
+                coursesDatabase.displaySearchRecord(coursesEcts);
+                delCourseRecords = coursesEcts;
                 break;
         }
     }
@@ -541,11 +548,29 @@ public class Menu {
     }
     public void delOptions(){
 
-        searchChoice();
-        System.out.print("Podaj indeks, ktory chcesz usunac: ");
-        int index = scanner.nextInt();
-        uniDatabase.delRecord(delPersonRecords, index);
+        clearConsole();
+        System.out.printf("%s\n%s\n",
+                "1: Usun osobe",
+                "2: Usun kurs");
 
+        int choice = scanner.nextInt();
+        switch(choice){
+            case 1:
+                searchPeople();
+                System.out.print("Podaj indeks, ktory chcesz usunac: ");
+                int index = scanner.nextInt();
+                uniDatabase.delRecord(delPersonRecords, index);
+                break;
+            case 2:
+                searchCourse();
+                System.out.print("Podaj indeks, ktory chcesz usunac: ");
+                index = scanner.nextInt();
+                coursesDatabase.delRecord(delCourseRecords, index);
+                break;
+            default:
+                displayMenu();
+                break;
+        }
     }
 
     public void sortChoice(){
