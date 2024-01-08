@@ -1,21 +1,22 @@
 package Databases;
 
-import Comparators.*;
-import Person.Person;
-import Student.Course;
-import SortingCourses.*;
+import DatabaseObserver.*;
 import Student.*;
+import SortingCourses.*;
+
 import java.io.*;
 import java.util.ArrayList;
 
 
-public class Courses implements Database, DatabaseSubject,Serializable{
+public class Courses implements Database, DatabaseSubject, Serializable{
+
     private static final long serialVersionUID = 2L;
-    ArrayList<Course> courseArrayList = new ArrayList<>();
+    private ArrayList<Course> courseArrayList = new ArrayList<>();
     private transient ArrayList<DatabaseObserver> observers = new ArrayList<>();
     private CoursesStrategy sortingStrategy;
 
     public Courses(){}
+
     @Override
     public void attach(DatabaseObserver observer){
         if (!observers.contains(observer))
@@ -135,11 +136,13 @@ public class Courses implements Database, DatabaseSubject,Serializable{
         }
         return  courseEctsResults;
     }
+
     public void displaySearchRecord(ArrayList<Course> searchResults){
 
         if (searchResults.isEmpty()){
             System.out.println("Brak wynikow wyszukiwania");
         }
+
         else {
 
             for (int i = 0; i < searchResults.size(); i++) {
@@ -151,14 +154,15 @@ public class Courses implements Database, DatabaseSubject,Serializable{
 
     public void delRecord(ArrayList<Course> searchResults, int index){
 
-        //TODO notifications
-        if (index < 0 || index > searchResults.size()){
+        if (index < 0 || index > searchResults.size())
             System.out.println("Podano zly indeks, prosze sprobowac ponownie...");
-        }
 
-        else courseArrayList.remove(searchResults.get(index - 1));
-        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.DELETE, searchResults.get(index - 1));
-        notifyObservers(event);
+        else {
+
+            courseArrayList.remove(searchResults.get(index - 1));
+            DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.DELETE, searchResults.get(index - 1));
+            notifyObservers(event);
+        }
     }
 
     public void setSortingStrategy(CoursesStrategy sortingStrategy) {
@@ -176,4 +180,3 @@ public class Courses implements Database, DatabaseSubject,Serializable{
 
 
 }
-    //TODO deleting specified objects from courses like in university

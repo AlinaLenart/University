@@ -67,9 +67,8 @@ public class Menu {
                 case 4:
                     addCourse();
                     break;
-
                 case 5:
-                    delOptions();
+                    delChoice();
                      break;
                 case 6:
                     sortChoice();
@@ -550,14 +549,15 @@ public class Menu {
 //        System.out.println("\n--- Dodales Kurs o nastepujacych danych: ---");
 //        System.out.println(c + "\n");
     }
-    public void delOptions(){
+    public void delChoice(){
 
         clearConsole();
         System.out.printf("%s\n%s\n",
-                "1: Usun osobe",
-                "2: Usun kurs");
+                "1: Usun Osobe",
+                "2: Usun Kurs");
 
         int choice = scanner.nextInt();
+
         switch(choice){
             case 1:
                 searchPeople();

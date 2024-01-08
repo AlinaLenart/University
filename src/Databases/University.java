@@ -1,4 +1,5 @@
 package Databases;
+import DatabaseObserver.DatabaseObserver;
 import Employees.*;
 import Person.*;
 
@@ -7,35 +8,44 @@ import java.io.*;
 
 import Student.*;
 import SortingUniversity.*;
-
+import DatabaseObserver.*;
 
 public class University implements Database, DatabaseSubject, Serializable {
+
     private static final long serialVersionUID = 3L;
     private ArrayList<Person> personArrayList = new ArrayList<>();
     private transient ArrayList<DatabaseObserver> observers = new ArrayList<>();
     private UniversityStrategy sortingStrategy;
+
     public University(){}
+
     @Override
     public void attach(DatabaseObserver observer){
+
         if (!observers.contains(observer))
             observers.add(observer);
     }
+
     @Override
     public void detach(DatabaseObserver observer){
         observers.remove(observer);
     }
+
     @Override
     public void notifyObservers(DatabaseChangeEvent event){
+
         for (DatabaseObserver observer : observers){
             observer.update(event);
         }
     }
+
     public void addRecord(Object ob){
 
         personArrayList.add((Person) ob);
         DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.ADD, ob);
         notifyObservers(event);
     }
+
     public void saveDatabaseToFile(String filePath) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(personArrayList);
@@ -43,6 +53,7 @@ public class University implements Database, DatabaseSubject, Serializable {
             e.printStackTrace();
         }
     }
+
     public void loadDatabaseFromFile(String filePath) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             personArrayList = (ArrayList<Person>) ois.readObject();
@@ -50,6 +61,7 @@ public class University implements Database, DatabaseSubject, Serializable {
             e.printStackTrace();
         }
     }
+
     public void displayDatabase(Class<?> displayType){
 
         for (int i = 0; i < personArrayList.size(); i++) {
@@ -58,6 +70,7 @@ public class University implements Database, DatabaseSubject, Serializable {
                 System.out.println(i + " " + personArrayList.get(i));
         }
     }
+
     public void results(int found){
 
         if(found <= 0)
@@ -66,9 +79,9 @@ public class University implements Database, DatabaseSubject, Serializable {
             System.out.println("Znaleziono "+ found +" wynikow pasujacych do kryteriow");
     }
 
-        public ArrayList<Person> searchByStudentName (String regex){
+    public ArrayList<Person> searchByStudentName (String regex){
 
-            ArrayList<Person> studentsNameResult = new ArrayList<Person>();
+        ArrayList<Person> studentsNameResult = new ArrayList<Person>();
 
         for (int i = 0; i < personArrayList.size(); i++) {
 
@@ -104,6 +117,7 @@ public class University implements Database, DatabaseSubject, Serializable {
         }
         return employeeNameResults;
     }
+
     public ArrayList<Person> searchByStudentSurname(String regex){
 
         ArrayList<Person> studentSurnameResults = new ArrayList<Person>();
@@ -123,6 +137,7 @@ public class University implements Database, DatabaseSubject, Serializable {
         }
         return studentSurnameResults;
     }
+
     public ArrayList<Person> searchByEmployeeSurname(String regex){
 
         ArrayList<Person> employeeSurnameResults = new ArrayList<Person>();
@@ -161,6 +176,7 @@ public class University implements Database, DatabaseSubject, Serializable {
         }
         return employeeIDResults;
     }
+
     public ArrayList<Person> searchByPositionName(String regex){
 
         ArrayList<Person> employeePositionResults = new ArrayList<Person>();
@@ -182,6 +198,7 @@ public class University implements Database, DatabaseSubject, Serializable {
         }
         return employeePositionResults;
     }
+
     public ArrayList<Person> searchByQuantity(double quantity){
 
         ArrayList<Person> employeeQuantityResults = new ArrayList<Person>();
@@ -220,6 +237,7 @@ public class University implements Database, DatabaseSubject, Serializable {
         }
        return employeeQuantityResults;
     }
+
     public ArrayList<Person> searchByWorkExperience(int workExperience){
 
         ArrayList<Person> employeeWorkExperienceResults = new ArrayList<Person>();
@@ -384,9 +402,11 @@ public class University implements Database, DatabaseSubject, Serializable {
         if (index < 0 || index > searchResults.size()){
             System.out.println("Podano zly indeks, prosze sprobowac ponownie...");
         }
-        else personArrayList.remove(searchResults.get(index - 1));
-        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.DELETE, searchResults.get(index - 1));
-        notifyObservers(event);
+        else {
+            personArrayList.remove(searchResults.get(index - 1));
+            DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.DELETE, searchResults.get(index - 1));
+            notifyObservers(event);
+        }
     }
 
 

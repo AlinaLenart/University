@@ -1,4 +1,6 @@
 package Main;
+
+import DatabaseObserver.*;
 import Databases.*;
 
 
@@ -8,9 +10,11 @@ public class Main {
 
         University uniDatabase = new University();
         Courses coursesDatabase = new Courses();
+        
         DatabaseLogger logger = new DatabaseLogger();
         uniDatabase.attach(logger);
         coursesDatabase.attach(logger);
+
         uniDatabase.loadDatabaseFromFile("uniDatabase.ser");
         coursesDatabase.loadDatabaseFromFile("coursesDatabase.ser");
 
