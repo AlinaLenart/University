@@ -15,6 +15,7 @@ public class Menu {
     private University uniDatabase;
     private Courses coursesDatabase;
     private ArrayList<Person> delPersonRecords;
+    private ArrayList<Course> delCourseRecords;
     private boolean exit = false;
     private Scanner scanner = new Scanner(System.in);
 
@@ -301,8 +302,8 @@ public class Menu {
                 break;
             case 9:
                 double ans9 = scanner.nextInt();
-                ArrayList<Person> emplyeeQuantity = uniDatabase.searchByQuantity(ans9);
-                uniDatabase.displaySearchRecord(emplyeeQuantity);
+                ArrayList<Person> employeeQuantity = uniDatabase.searchByQuantity(ans9);
+                uniDatabase.displaySearchRecord(employeeQuantity);
                 break;
 
         }
@@ -322,15 +323,21 @@ public class Menu {
         switch (choice){
             case 1:
                 String ans = scanner.nextLine();
-                coursesDatabase.searchByName(ans);
+                ArrayList<Course> coursesName = coursesDatabase.searchByName(ans);
+                coursesDatabase.displaySearchRecord(coursesName);
+                delCourseRecords = coursesName;
                 break;
             case 2:
                 String ans2 = scanner.nextLine();
-                coursesDatabase.searchByTeacher(ans2);
+                ArrayList<Course> coursesTeacher = coursesDatabase.searchByName(ans2);
+                coursesDatabase.displaySearchRecord(coursesTeacher);
+                delCourseRecords = coursesTeacher;
                 break;
             case 3:
                 int ans3 = scanner.nextInt();
-                coursesDatabase.searchByEcts(ans3);
+                ArrayList<Course> coursesEcts = coursesDatabase.searchByEcts(ans3);
+                coursesDatabase.displaySearchRecord(coursesEcts);
+                delCourseRecords = coursesEcts;
                 break;
         }
     }
@@ -412,8 +419,8 @@ public class Menu {
                 coursesDatabase.createSchedule(answers));
         uniDatabase.addRecord(st);
 
-        System.out.println("\n--- Dodales studenta o nastepujacych danych: ---");
-        System.out.println(st + "\n");
+//        System.out.println("\n--- Dodales studenta o nastepujacych danych: ---");
+//        System.out.println(st + "\n");
 
     }
     public void addEmployee(){
@@ -478,8 +485,8 @@ public class Menu {
         UniversityEmployee adm = new AdministrationEmployee(name, surname, pesel, age, sex, position, workExperience, salary, overtime);
         uniDatabase.addRecord(adm);
 
-        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
-        System.out.println(adm + "\n");
+//        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
+//        System.out.println(adm + "\n");
 
     }
     public void addResearchEmployee() {
@@ -521,8 +528,8 @@ public class Menu {
         UniversityEmployee dyd = new ResearchEmployee(name, surname, pesel, age, sex, position, workExperience, salary, releases);
         uniDatabase.addRecord(dyd);
 
-        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
-        System.out.println(dyd + "\n");
+//        System.out.println("\n--- Dodales Pracownika o nastepujacych danych: ---");
+//        System.out.println(dyd + "\n");
     }
     public void addCourse(){
         System.out.println("--- Wprowadz dane aby dodac Kurs do bazy ---");
@@ -540,16 +547,34 @@ public class Menu {
         Course c = new Course(name, teacher, ects);
         coursesDatabase.addRecord(c);
 
-        System.out.println("\n--- Dodales Kurs o nastepujacych danych: ---");
-        System.out.println(c + "\n");
+//        System.out.println("\n--- Dodales Kurs o nastepujacych danych: ---");
+//        System.out.println(c + "\n");
     }
     public void delOptions(){
 
-        searchChoice();
-        System.out.print("Podaj indeks, ktory chcesz usunac: ");
-        int index = scanner.nextInt();
-        uniDatabase.delRecord(delPersonRecords, index);
+        clearConsole();
+        System.out.printf("%s\n%s\n",
+                "1: Usun osobe",
+                "2: Usun kurs");
 
+        int choice = scanner.nextInt();
+        switch(choice){
+            case 1:
+                searchPeople();
+                System.out.print("Podaj indeks, ktory chcesz usunac: ");
+                int index = scanner.nextInt();
+                uniDatabase.delRecord(delPersonRecords, index);
+                break;
+            case 2:
+                searchCourse();
+                System.out.print("Podaj indeks, ktory chcesz usunac: ");
+                index = scanner.nextInt();
+                coursesDatabase.delRecord(delCourseRecords, index);
+                break;
+            default:
+                displayMenu();
+                break;
+        }
     }
 
     public void sortChoice(){
@@ -626,11 +651,6 @@ public class Menu {
                 break;
         }
     }
-
-
-
-
-
 
 
     public static void clearConsole() {

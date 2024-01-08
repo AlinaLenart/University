@@ -1,26 +1,44 @@
 package Databases;
 
-
+import Comparators.*;
+import Person.Person;
+import Student.Course;
 import SortingCourses.*;
 import Student.*;
-
 import java.io.*;
 import java.util.ArrayList;
 
 
-public class Courses implements Database, Serializable{
+public class Courses implements Database, DatabaseSubject,Serializable{
     private static final long serialVersionUID = 2L;
     ArrayList<Course> courseArrayList = new ArrayList<>();
+    private transient ArrayList<DatabaseObserver> observers = new ArrayList<>();
     private CoursesStrategy sortingStrategy;
 
     public Courses(){}
-
+    @Override
+    public void attach(DatabaseObserver observer){
+        if (!observers.contains(observer))
+            observers.add(observer);
+    }
+    @Override
+    public void detach(DatabaseObserver observer){
+        observers.remove(observer);
+    }
+    @Override
+    public void notifyObservers(DatabaseChangeEvent event){
+        for (DatabaseObserver observer : observers){
+            observer.update(event);
+        }
+    }
     public ArrayList<Course> getCourseArrayList() {
         return courseArrayList;
     }
 
     public void addRecord(Object ob){
         courseArrayList.add((Course) ob);
+        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.ADD, ob);
+        notifyObservers(event);
     }
 
 
@@ -72,9 +90,9 @@ public class Courses implements Database, Serializable{
         else
             System.out.println("Znaleziono "+ found +" wynikow pasujacych do kryteriow");
     }
-    public void searchByName(String regex){
+    public ArrayList<Course>  searchByName(String regex){
 
-        int found = 0;
+        ArrayList<Course> courseNameResults = new ArrayList<Course>();
 
         for (int i = 0; i < courseArrayList.size(); i++) {
 
@@ -82,15 +100,14 @@ public class Courses implements Database, Serializable{
 
             if(Regex.stringSearch(regex, element)) {
 
-                System.out.println(courseArrayList.get(i));
-                found++;
+                courseNameResults.add(courseArrayList.get(i));
             }
         }
-        results(found);
+        return courseNameResults;
     }
-    public void searchByTeacher(String regex){
+    public ArrayList<Course>  searchByTeacher(String regex){
 
-        int found = 0;
+        ArrayList<Course> courseTeacherResults = new ArrayList<Course>();
 
         for (int i = 0; i < courseArrayList.size(); i++) {
 
@@ -98,28 +115,51 @@ public class Courses implements Database, Serializable{
 
             if(Regex.stringSearch(regex, element)) {
 
-                System.out.println(courseArrayList.get(i));
-                found++;
+                courseTeacherResults.add(courseArrayList.get(i));
+
             }
         }
-        results(found);
+        return courseTeacherResults;
     }
 
-    public void searchByEcts(int ects){
+    public ArrayList<Course>  searchByEcts(int ects){
 
-        int found = 0;
+        ArrayList<Course> courseEctsResults = new ArrayList<Course>();
 
         for (int i = 0; i < courseArrayList.size(); i++) {
 
             if(courseArrayList.get(i).getEcts() == ects) {
 
-                System.out.println(courseArrayList.get(i));
-                found++;
+                courseEctsResults.add(courseArrayList.get(i));
             }
         }
-        results(found);
+        return  courseEctsResults;
+    }
+    public void displaySearchRecord(ArrayList<Course> searchResults){
+
+        if (searchResults.isEmpty()){
+            System.out.println("Brak wynikow wyszukiwania");
+        }
+        else {
+
+            for (int i = 0; i < searchResults.size(); i++) {
+                System.out.println((i + 1) + ". " + searchResults.get(i));
+            }
+
+        }
     }
 
+    public void delRecord(ArrayList<Course> searchResults, int index){
+
+        //TODO notifications
+        if (index < 0 || index > searchResults.size()){
+            System.out.println("Podano zly indeks, prosze sprobowac ponownie...");
+        }
+
+        else courseArrayList.remove(searchResults.get(index - 1));
+        DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.DELETE, searchResults.get(index - 1));
+        notifyObservers(event);
+    }
 
     public void setSortingStrategy(CoursesStrategy sortingStrategy) {
 
@@ -136,5 +176,4 @@ public class Courses implements Database, Serializable{
 
 
 }
-    //TODO displaying search results with indexes
     //TODO deleting specified objects from courses like in university
