@@ -71,14 +71,6 @@ public class University implements Database, DatabaseSubject, Serializable {
         }
     }
 
-    public void results(int found){
-
-        if(found <= 0)
-            System.out.println("Nie znaleziono");
-        else
-            System.out.println("Znaleziono "+ found +" wynikow pasujacych do kryteriow");
-    }
-
     public ArrayList<Person> searchByStudentName (String regex){
 
         ArrayList<Person> studentsNameResult = new ArrayList<Person>();

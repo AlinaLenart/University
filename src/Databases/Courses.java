@@ -84,13 +84,7 @@ public class Courses implements Database, DatabaseSubject, Serializable{
 
         return studentSchedule;
     }
-    public void results(int found){
 
-        if(found <= 0)
-            System.out.println("Nie znaleziono");
-        else
-            System.out.println("Znaleziono "+ found +" wynikow pasujacych do kryteriow");
-    }
     public ArrayList<Course>  searchByName(String regex){
 
         ArrayList<Course> courseNameResults = new ArrayList<Course>();

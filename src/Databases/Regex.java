@@ -12,6 +12,9 @@ public class Regex {
 
         return matcher.find();
 
+        //^a - zaczynajace sie na a
+
+
     }
 
 

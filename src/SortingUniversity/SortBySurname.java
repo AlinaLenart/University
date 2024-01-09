@@ -6,6 +6,7 @@ import java.util.Comparator;
 public class SortBySurname implements UniversityStrategy, Comparator<Person> {
 
     public void sort(ArrayList<Person> uniDatabase){
+
         uniDatabase.sort(this);
     }
 

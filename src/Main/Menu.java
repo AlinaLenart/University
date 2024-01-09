@@ -610,7 +610,8 @@ public class Menu {
 
         switch (choice){
             case 1:
-                uniDatabase.setSortingStrategy(new SortBySurname());
+                UniversityStrategy sortBySurname = new SortBySurnameThenAge();
+                uniDatabase.setSortingStrategy(sortBySurname);
                 uniDatabase.sortByChosenStrategy();
                 break;
             case 2:
