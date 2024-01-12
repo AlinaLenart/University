@@ -238,6 +238,9 @@ public class Menu {
                 uniDatabase.displaySearchRecord(studentsCourseName);
                 delPersonRecords = studentsCourseName;
                 break;
+            default:
+                searchPeople();
+                break;
         }
     }
 
@@ -263,46 +266,58 @@ public class Menu {
                 String ans = scanner.nextLine();
                 ArrayList<Person> employeeName = uniDatabase.searchByEmployeeName(ans);
                 uniDatabase.displaySearchRecord(employeeName);
+                delPersonRecords = employeeName;
                 break;
             case 2:
                 String ans2 = scanner.nextLine();
                 ArrayList<Person> employeeSurname = uniDatabase.searchByEmployeeSurname(ans2);
                 uniDatabase.displaySearchRecord(employeeSurname);
+                delPersonRecords = employeeSurname;
                 break;
             case 3:
                 int ans3 = scanner.nextInt();
                 ArrayList<Person> employeeID = uniDatabase.searchByPositionID(ans3);
                 uniDatabase.displaySearchRecord(employeeID);
+                delPersonRecords = employeeID;
                 break;
             case 4:
                 String ans4 = scanner.nextLine();
                 ArrayList<Person> employeePosition = uniDatabase.searchByPositionName(ans4);
                 uniDatabase.displaySearchRecord(employeePosition);
+                delPersonRecords = employeePosition;
                 break;
             case 5:
                 int ans5 = scanner.nextInt();
                 ArrayList<Person> employeeExperience = uniDatabase.searchByWorkExperience(ans5);
                 uniDatabase.displaySearchRecord(employeeExperience);
+                delPersonRecords = employeeExperience;
                 break;
             case 6:
                 double ans6 = scanner.nextInt();
                 ArrayList<Person> employeeSalary = uniDatabase.searchBySalary(ans6);
                 uniDatabase.displaySearchRecord(employeeSalary);
+                delPersonRecords = employeeSalary;
                 break;
             case 7:
                 int ans7 = scanner.nextInt();
                 ArrayList<Person> employeeOvertime = uniDatabase.searchByOvertime(ans7);
                 uniDatabase.displaySearchRecord(employeeOvertime);
+                delPersonRecords = employeeOvertime;
                 break;
             case 8:
                 int ans8 = scanner.nextInt();
                 ArrayList<Person> employeeRelease = uniDatabase.searchByReleases(ans8);
                 uniDatabase.displaySearchRecord(employeeRelease);
+                delPersonRecords = employeeRelease;
                 break;
             case 9:
                 double ans9 = scanner.nextInt();
                 ArrayList<Person> employeeQuantity = uniDatabase.searchByQuantity(ans9);
                 uniDatabase.displaySearchRecord(employeeQuantity);
+                delPersonRecords = employeeQuantity;
+                break;
+            default:
+                searchPeople();
                 break;
 
         }

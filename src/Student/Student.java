@@ -2,6 +2,8 @@ package Student;
 import java.io.Serializable;
 import Person.*;
 import java.util.ArrayList;
+import java.util.Objects;
+
 public class Student extends Person implements Serializable  {
     private static final long serialVersionUID = 4018073578401891246L;
     private int studentID;
@@ -10,6 +12,7 @@ public class Student extends Person implements Serializable  {
     private int degree;
     private boolean remote;
     private ArrayList<Course> courseList = new ArrayList<>();
+
     public Student(String name, String surname, String pesel, int age, char sex,
                    int studentID, int year, boolean erasmus, int degree, boolean remote,
                    ArrayList<Course> courseList){
@@ -86,4 +89,22 @@ public class Student extends Person implements Serializable  {
                 ", zdalnie=" + remote +
                 ", lista kursow=" + courseList.toString();
     }
+
+    @Override
+    public boolean equals(Object object) {
+
+        if (this == object)
+            return true;
+        if (object == null || getClass() != object.getClass())
+            return false;
+
+        Student student = (Student) object;
+        return studentID == student.studentID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentID);
+    }
+
 }

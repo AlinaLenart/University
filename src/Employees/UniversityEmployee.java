@@ -1,6 +1,8 @@
 package Employees;
 import Person.Person;
 
+import java.util.Objects;
+
 public abstract class UniversityEmployee extends Person {
     protected int position;
     protected int workExperience; //in years
@@ -41,5 +43,20 @@ public abstract class UniversityEmployee extends Person {
     public abstract String jobPosition();
     public abstract String toString();
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object)
+            return true;
+        if (object == null || getClass() != object.getClass())
+            return false;
 
+        UniversityEmployee that = (UniversityEmployee) object;
+        return getPesel().equals(that.getPesel());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getPesel());
+    }
 }
