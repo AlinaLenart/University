@@ -1,5 +1,7 @@
 package Person;
 import java.io.Serializable;
+import java.util.Objects;
+
 public abstract class Person implements Serializable{
     private static final long serialVersionUID = 1L;
     private String name;
@@ -58,5 +60,6 @@ public abstract class Person implements Serializable{
 
     public abstract String toString();
 
-
+    public abstract boolean equals(Object o);
+    public abstract int hashCode();
 }

@@ -1,6 +1,7 @@
 package Student;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,5 +46,16 @@ public class Course implements Serializable {
                 ", ects=" + ects +
                 '}';
 
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return name.equalsIgnoreCase(course.name) && teacher.equalsIgnoreCase(course.teacher);
+    }
+
+    public int hashCode() {
+        return Objects.hash(name, teacher);
     }
 }

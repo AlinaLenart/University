@@ -1,6 +1,7 @@
 package Employees;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class AdministrationEmployee extends UniversityEmployee implements Serializable {
     private int overtime; //in hours
@@ -42,4 +43,6 @@ public class AdministrationEmployee extends UniversityEmployee implements Serial
     public void setOvertime(int overtime) {
         this.overtime = overtime;
     }
+
+
 }

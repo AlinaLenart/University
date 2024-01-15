@@ -3,6 +3,7 @@ package Employees;
 import Person.Person;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ResearchEmployee extends UniversityEmployee implements Serializable {
     private int releases;
@@ -43,4 +44,5 @@ public class ResearchEmployee extends UniversityEmployee implements Serializable
     public int getReleases() {
         return releases;
     }
+
 }

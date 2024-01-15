@@ -171,6 +171,7 @@ public class Courses implements Database, DatabaseSubject, Serializable{
 
     }
 
-
-
+    public void setCourseArrayList(ArrayList<Course> courseArrayList) {
+        this.courseArrayList = courseArrayList;
+    }
 }

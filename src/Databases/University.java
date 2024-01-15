@@ -67,7 +67,7 @@ public class University implements Database, DatabaseSubject, Serializable {
         for (int i = 0; i < personArrayList.size(); i++) {
 
             if(displayType.isInstance(personArrayList.get(i)) && (personArrayList.get(i) != null))
-                System.out.println(i + " " + personArrayList.get(i));
+                System.out.println("["+ (i + 1) + "] "+ personArrayList.get(i));
         }
     }
 
@@ -414,5 +414,11 @@ public class University implements Database, DatabaseSubject, Serializable {
 
     }
 
+    public ArrayList<Person> getPersonArrayList() {
+        return personArrayList;
+    }
 
+    public void setPersonArrayList(ArrayList<Person> personArrayList) {
+        this.personArrayList = personArrayList;
+    }
 }

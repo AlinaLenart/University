@@ -8,6 +8,8 @@ import SortingUniversity.*;
 import Student.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Scanner;
 
 
@@ -31,6 +33,14 @@ public class Menu {
         return coursesDatabase;
     }
 
+    public void setUniDatabase(University uniDatabase) {
+        this.uniDatabase = uniDatabase;
+    }
+
+    public void setCoursesDatabase(Courses coursesDatabase) {
+        this.coursesDatabase = coursesDatabase;
+    }
+
     public boolean isExit() {
         return exit;
     }
@@ -42,13 +52,12 @@ public class Menu {
             clearConsole();
             System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n",
 
-                    "1: Wyswietl baze",
-                    "2: Wyszukaj informacje w bazie",
-                    "3: Dodaj Osobe",
-                    "4: Dodaj Kurs",
-                    "5: Usun dane",
-                    "6: Sortuj baze",
-
+                    "1: Wyswietl",
+                    "2: Wyszukaj informacje",
+                    "3: Dodaj",
+                    "4: Usun",
+                    "5: Sortuj",
+                    "6: Usun powtorzenia",
                     "[-1]: Zakoncz");
 
             int choice = scanner.nextInt();
@@ -62,23 +71,42 @@ public class Menu {
                     searchChoice();
                     break;
                 case 3:
-                    addPerson();
+                    addChoice();
                     break;
                 case 4:
-                    addCourse();
-                    break;
-                case 5:
                     delChoice();
                      break;
-                case 6:
+                case 5:
                     sortChoice();
                     break;
+                case 6:
+                    removeDuplicates();
                 case -1:
                     exit = true;
                     scanner.close();
                 default:
                     break;
             }
+        }
+    }
+    public void addChoice(){
+        clearConsole();
+        System.out.printf("%s\n%s\n",
+                "1: Dodaj do bazy Osob",
+                "2: Dodaj do bazy Kursow");
+
+        int choice = scanner.nextInt();
+
+        switch(choice){
+            case 1:
+                addPerson();
+                break;
+            case 2:
+                addCourse();
+                break;
+            default:
+                displayMenu();
+                break;
         }
     }
     public void displayChoice(){
@@ -410,32 +438,34 @@ public class Menu {
         System.out.println("Czy uczen studiuje zdalnie (true/false): ");
         boolean remote = scanner.nextBoolean();
 
-        System.out.println("** Wybierz kursy dla studenta podajac liczby sposrod: **");
-        coursesDatabase.displayDatabase(Course.class);
+        if(coursesDatabase.getCourseArrayList().size() == 0)
+            System.out.println("Brak kursow do wyboru, sprobuj ponownie");
+        else {
+            System.out.println("** Wybierz kursy dla studenta podajac liczby sposrod: **");
+            coursesDatabase.displayDatabase(Course.class);
 
+            int[] answers = new int[coursesDatabase.getCourseArrayList().size()];
+            int choice = 0;
+            System.out.println("*Aby przerwac dodawanie kursow wpisz -1*");
 
-        int[] answers = new int[coursesDatabase.getCourseArrayList().size()];
-        int choice = 0;
-        System.out.println("*Aby przerwac dodawanie kursow wpisz -1*");
-
-        int i = 0;
-
-        do{
-
+            int i = 0;
             choice = scanner.nextInt();
 
-            answers[i] = choice;
-            i++;
+            while (choice != -1) {
 
-        } while(choice != -1);
+                answers[i] = choice;
+                i++;
+                choice = scanner.nextInt();
 
-        Student st = new Student(name, surname, pesel, age, sex, studentID, year, erasmus, degree, remote,
-                coursesDatabase.createSchedule(answers));
-        uniDatabase.addRecord(st);
+            }
+
+            Student st = new Student(name, surname, pesel, age, sex, studentID, year, erasmus, degree, remote,
+                    coursesDatabase.createSchedule(answers));
+            uniDatabase.addRecord(st);
 
 //        System.out.println("\n--- Dodales studenta o nastepujacych danych: ---");
 //        System.out.println(st + "\n");
-
+        }
     }
     public void addEmployee(){
         clearConsole();
@@ -664,6 +694,69 @@ public class Menu {
                 break;
             default:
                 sortChoice();
+                break;
+        }
+    }
+    public void removeDuplicates(){
+        clearConsole();
+        System.out.printf("%s\n%s\n",
+                "1: Usun duplikaty w bazie Osob",
+                "2: Usun duplikaty w bazie Kursow");
+
+        int choice = scanner.nextInt();
+
+        switch(choice){
+            case 1:
+                removePeopleDuplicates();
+                break;
+            case 2:
+                removeCoursesDuplicates();
+                break;
+            default:
+                displayMenu();
+                break;
+        }
+    }
+
+    public void removePeopleDuplicates(){
+
+        HashSet<Person> noDuplicatesDatabase = new HashSet<>(getUniDatabase().getPersonArrayList());
+        for (Person p : noDuplicatesDatabase) {
+            System.out.println(p);
+        }
+
+        System.out.println("Czy chcesz zachowac powyzsza baze? \n[1] TAK [2] NIE");
+
+        int choice = scanner.nextInt();
+
+        switch(choice){
+            case 1:
+                ArrayList<Person> noDuplicatesArraylist = new ArrayList<>(noDuplicatesDatabase);
+                getUniDatabase().setPersonArrayList(noDuplicatesArraylist); displayMenu();
+                break;
+            default:
+                displayMenu();
+                break;
+        }
+    }
+    public void removeCoursesDuplicates(){
+
+        HashSet<Course> noDuplicatesDatabase = new HashSet<>(getCoursesDatabase().getCourseArrayList());
+        for (Course c : noDuplicatesDatabase) {
+            System.out.println(c);
+        }
+
+        System.out.println("Czy chcesz zachowac powyzsza baze? \n[1] TAK [2] NIE");
+
+        int choice = scanner.nextInt();
+
+        switch(choice){
+            case 1:
+                ArrayList<Course> noDuplicatesArraylist = new ArrayList<>(noDuplicatesDatabase);
+                getCoursesDatabase().setCourseArrayList(noDuplicatesArraylist); displayMenu();
+                break;
+            default:
+                displayMenu();
                 break;
         }
     }
