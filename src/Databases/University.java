@@ -44,6 +44,7 @@ public class University implements Database, DatabaseSubject, Serializable {
         personArrayList.add((Person) ob);
         DatabaseChangeEvent event = new DatabaseChangeEvent(DatabaseChangeEvent.EventType.ADD, ob);
         notifyObservers(event);
+
     }
 
     public void saveDatabaseToFile(String filePath) {
@@ -62,14 +63,36 @@ public class University implements Database, DatabaseSubject, Serializable {
         }
     }
 
-    public void displayDatabase(Class<?> displayType){
+    public ArrayList<Person> getStudentsList(){
 
-        for (int i = 0; i < personArrayList.size(); i++) {
-
-            if(displayType.isInstance(personArrayList.get(i)) && (personArrayList.get(i) != null))
-                System.out.println("["+ (i + 1) + "] "+ personArrayList.get(i));
+        ArrayList<Person> list = new ArrayList<>();
+        for(Person p : personArrayList){
+            if(p instanceof Student){
+                list.add(p);
+            }
         }
+        return list;
     }
+    public ArrayList<Person> getEmployeesList(){
+
+        ArrayList<Person> list = new ArrayList<>();
+        for(Person p : personArrayList){
+            if(p instanceof UniversityEmployee){
+                list.add(p);
+            }
+        }
+        return list;
+    }
+
+
+//    public ArrayList<Person> displayDatabase(Class<?> displayType){
+//
+//        for (int i = 0; i < personArrayList.size(); i++) {
+//
+//            if(displayType.isInstance(personArrayList.get(i)) && (personArrayList.get(i) != null))
+//                System.out.println("["+ (i + 1) + "] "+ personArrayList.get(i));
+//        }
+//    }
 
     public ArrayList<Person> searchByStudentName (String regex){
 
@@ -150,24 +173,24 @@ public class University implements Database, DatabaseSubject, Serializable {
         return employeeSurnameResults;
     }
 
-    public ArrayList<Person> searchByPositionID(int position){
-
-        ArrayList<Person> employeeIDResults = new ArrayList<Person>();
-
-        for (int i = 0; i < personArrayList.size(); i++) {
-
-            if(personArrayList.get(i) instanceof UniversityEmployee){
-
-                UniversityEmployee emp = (UniversityEmployee) personArrayList.get(i);
-
-                if(emp.getPosition() == position) {
-
-                    employeeIDResults.add(personArrayList.get(i));
-                }
-            }
-        }
-        return employeeIDResults;
-    }
+//    public ArrayList<Person> searchByPositionID(int position){
+//
+//        ArrayList<Person> employeeIDResults = new ArrayList<Person>();
+//
+//        for (int i = 0; i < personArrayList.size(); i++) {
+//
+//            if(personArrayList.get(i) instanceof UniversityEmployee){
+//
+//                UniversityEmployee emp = (UniversityEmployee) personArrayList.get(i);
+//
+//                if(emp.getJobPosition().eqposition) {
+//
+//                    employeeIDResults.add(personArrayList.get(i));
+//                }
+//            }
+//        }
+//        return employeeIDResults;
+//    }
 
     public ArrayList<Person> searchByPositionName(String regex){
 
@@ -179,7 +202,7 @@ public class University implements Database, DatabaseSubject, Serializable {
 
                 UniversityEmployee employee = (UniversityEmployee) personArrayList.get(i);
 
-                String element = employee.jobPosition();
+                String element = employee.getJobPosition();
 
                 if(Regex.stringSearch(regex, element)) {
 

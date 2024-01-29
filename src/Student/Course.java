@@ -40,11 +40,8 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "Kurs {" +
-                "nazwa='" + name + '\'' +
-                ", prowadzacy='" + teacher + '\'' +
-                ", ects=" + ects +
-                '}';
+        return String.format("%-30s %-40s %-15d\n",
+                name, teacher, ects);
 
     }
 

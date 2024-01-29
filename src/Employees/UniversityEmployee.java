@@ -4,24 +4,24 @@ import Person.Person;
 import java.util.Objects;
 
 public abstract class UniversityEmployee extends Person {
-    protected int position;
+    protected String jobPosition;
     protected int workExperience; //in years
     protected double salary;
 
-    public UniversityEmployee(String name, String surname, String pesel, int age, char sex,
-                              int position, int workExperience, double salary){
+    public UniversityEmployee(String name, String surname, String pesel, int age, String sex,
+                              String jobPosition, int workExperience, double salary){
         super(name, surname, pesel, age, sex);
-        this.position = position;
+        this.jobPosition = jobPosition;
         this.workExperience = workExperience;
         this.salary = salary;
     }
 
-    public int getPosition() {
-        return position;
+    public String getJobPosition() {
+        return jobPosition;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setJobPosition(String jobPosition) {
+        this.jobPosition = jobPosition;
     }
 
     public int getWorkExperience() {
@@ -40,7 +40,7 @@ public abstract class UniversityEmployee extends Person {
         this.salary = salary;
     }
 
-    public abstract String jobPosition();
+
     public abstract String toString();
 
     @Override

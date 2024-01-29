@@ -5,6 +5,6 @@ import java.util.ArrayList;
 
 public interface CoursesStrategy {
 
-    public void sort(ArrayList<Course> universityDatabase);
+    public void sort(ArrayList<Course> coursesDatabase);
 
 }

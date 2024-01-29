@@ -13,14 +13,14 @@ public class Student extends Person implements Serializable  {
     private boolean remote;
     private ArrayList<Course> courseList = new ArrayList<>();
 
-    public Student(String name, String surname, String pesel, int age, char sex,
-                   int studentID, int year, boolean erasmus, int degree, boolean remote,
+    public Student(String name, String surname, String pesel, int age, String sex,
+                   int studentID, int year, int degree,boolean erasmus, boolean remote,
                    ArrayList<Course> courseList){
         super(name, surname, pesel, age, sex);
         this.studentID = studentID;
         this.year = year;
-        this.erasmus = erasmus;
         this.degree = degree;
+        this.erasmus = erasmus;
         this.remote = remote;
         this.courseList = courseList;
     }
@@ -76,18 +76,9 @@ public class Student extends Person implements Serializable  {
 
     @Override
     public String toString() {
-        return "Student: " +
-                "imie='" + getName() + '\'' +
-                ", nazwisko='" + getSurname() + '\'' +
-                ", pesel='" + getPesel() + '\'' +
-                ", wiek=" + getAge() +
-                ", plec=" + getSex() +
-                ", nr indeksu=" + studentID +
-                ", rok=" + year +
-                ", erasmus=" + erasmus +
-                ", stopien=" + degree +
-                ", zdalnie=" + remote +
-                ", lista kursow=" + courseList.toString();
+        return String.format("%-35s %-20s %-20s %-20s %-5d %-10s %-15d %-15d %-10d %-10b %-10b %s",
+                "Student", getName(), getSurname(), getPesel(), getAge(), getSex(), studentID, year, degree, erasmus, remote, courseList.toString());
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package Main;
 
 import DatabaseObserver.*;
 import Databases.*;
+import GUI.*;
 
 
 public class Main {
@@ -15,14 +16,12 @@ public class Main {
         uniDatabase.attach(logger);
         coursesDatabase.attach(logger);
 
+
         uniDatabase.loadDatabaseFromFile("uniDatabase.ser");
         coursesDatabase.loadDatabaseFromFile("coursesDatabase.ser");
 
         Menu menu = new Menu(uniDatabase, coursesDatabase);
-        menu.displayMenu();
 
-        uniDatabase.saveDatabaseToFile("uniDatabase.ser");
-        coursesDatabase.saveDatabaseToFile("coursesDatabase.ser");
 
 
     }

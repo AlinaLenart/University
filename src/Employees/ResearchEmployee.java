@@ -8,38 +8,21 @@ import java.util.Objects;
 public class ResearchEmployee extends UniversityEmployee implements Serializable {
     private int releases;
 
-    public ResearchEmployee(String name, String surname, String pesel, int age, char sex,
-                            int position, int workExperience, double pensja,
+    public ResearchEmployee(String name, String surname, String pesel, int age, String sex,
+                            String jobPosition, int workExperience, double salary,
                             int releases){
-        super(name, surname, pesel, age, sex, position, workExperience, pensja);
+        super(name, surname, pesel, age, sex, jobPosition, workExperience, salary);
         this.releases = releases;
     }
 
     @Override
     public String toString() {
-        return "Pracownik Badawczo-Dydaktyczny : " +
-                "imie='" + getName() + '\'' +
-                ", nazwisko='" + getSurname() + '\'' +
-                ", pesel='" + getPesel() + '\'' +
-                ", wiek=" + getAge() +
-                ", plec=" + getSex() +
-                ", stanowisko='" + jobPosition() + '\'' +
-                ", staz pracy=" + workExperience +
-                ", pensja=" + salary +
-                ", publikacje=" + releases;
+        return String.format("%-35s %-20s %-20s %-20s %-10d %-10s %-25s %-15d %-15.2f %-30d",
+                "Pracownik Badawczo-Dydaktyczny", getName(), getSurname(), getPesel(), getAge(), getSex(), jobPosition, workExperience, salary, releases);
 
     }
 
-    public String jobPosition(){
-        switch(position){
-            case 1: return "Asystent";
-            case 2: return "Adiunkt";
-            case 3: return "Profesor Zwyczajny";
-            case 4: return "Profesor Nadzwyczajny";
-            case 5: return "Wykladowca";
-            default: return "Nieznane stanowisko";
-        }
-    }
+
 
     public int getReleases() {
         return releases;

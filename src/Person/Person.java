@@ -8,14 +8,14 @@ public abstract class Person implements Serializable{
     private String surname;
     private String pesel;
     private int age;
-    private char sex;
+    private String sex;
 
-    public Person(String name, String surname, String pesel, int age, char sex){
+    public Person(String name, String surname, String pesel, int age, String sex){
         this.name = name;
         this.surname = surname;
         this.pesel = pesel;
         this.age = age;
-        this.sex = Character.toUpperCase(sex);
+        this.sex = sex;
     }
     public Person(){};
     public String getName() {
@@ -50,11 +50,11 @@ public abstract class Person implements Serializable{
         this.age = age;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

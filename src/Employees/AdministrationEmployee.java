@@ -5,35 +5,19 @@ import java.util.Objects;
 
 public class AdministrationEmployee extends UniversityEmployee implements Serializable {
     private int overtime; //in hours
-    public AdministrationEmployee(String name, String surname, String pesel, int age, char sex,
-                                  int position, int workExperience, double salary,
+    public AdministrationEmployee(String name, String surname, String pesel, int age, String sex,
+                                  String jobPosition, int workExperience, double salary,
                                   int overtime){
-        super(name, surname, pesel, age, sex, position, workExperience, salary);
+        super(name, surname, pesel, age, sex, jobPosition, workExperience, salary);
         this.overtime = overtime;
     }
-    public String jobPosition(){
-        switch(position){
-            case 1: return "Referent";
-            case 2: return "Specjalista";
-            case 3: return "Starszy Specjalista";
-            case 4: return "Nadzorujacy Badania";
-            case 5: return "Prezes Zarzadu";
-            default: return "Nieznane stanowisko";
-        }
-    }
+
 
     @Override
     public String toString() {
-        return "Pracownik Administracyjny : " +
-                "imie='" + getName() + '\'' +
-                ", nazwisko='" + getSurname() + '\'' +
-                ", pesel='" + getPesel() + '\'' +
-                ", wiek=" + getAge() +
-                ", plec=" + getSex() +
-                ", stanowisko='" + jobPosition() + '\'' +
-                ", staz pracy=" + workExperience +
-                ", pensja=" + salary +
-                ", nadgodziny=" + overtime;
+        return String.format("%-35s %-20s %-20s %-20s %-10d %-10s %-25s %-15d %-15.2f %-30d",
+                "Pracownik Administracyjny", getName(), getSurname(), getPesel(), getAge(), getSex(), jobPosition, workExperience, salary, overtime);
+
     }
 
     public int getOvertime() {
