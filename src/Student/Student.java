@@ -77,8 +77,16 @@ public class Student extends Person implements Serializable  {
     @Override
     public String toString() {
         return String.format("%-35s %-20s %-20s %-20s %-5d %-10s %-15d %-15d %-10d %-10b %-10b %s",
-                "Student", getName(), getSurname(), getPesel(), getAge(), getSex(), studentID, year, degree, erasmus, remote, courseList.toString());
+                "Student", getName(), getSurname(), getPesel(), getAge(), getSex(), studentID, year, degree, erasmus, remote, displayCourses());
 
+    }
+
+    public String displayCourses(){
+        StringBuilder sb = new StringBuilder();
+        for(Course c : courseList){
+            sb.append(c.getName()).append(" , ").append(c.getTeacher()).append(" , ").append(c.getEcts()).append(" | ");
+        }
+        return sb.toString();
     }
 
     @Override

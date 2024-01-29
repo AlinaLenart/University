@@ -28,22 +28,22 @@ public class DisplayPanel implements ActionListener {
         frame.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 
-        peopleButton = new JButton("Display People Database");
+        peopleButton = new JButton("Wyświetl Baze Osób");
         peopleButton.setPreferredSize(new Dimension(350,200));
         peopleButton.setFocusable(false);
         peopleButton.addActionListener(this);
 
-        coursesButton = new JButton("Display Courses Database");
+        coursesButton = new JButton("Wyświetl Baze Kursów");
         coursesButton.setPreferredSize(new Dimension(350,200));
         coursesButton.setFocusable(false);
         coursesButton.addActionListener(this);
 
-        studentsButton = new JButton("Display Students");
+        studentsButton = new JButton("Wyświetl Baze Studentów");
         studentsButton.setPreferredSize(new Dimension(350,200));
         studentsButton.setFocusable(false);
         studentsButton.addActionListener(this);
 
-        employeesButton = new JButton("Display Employees");
+        employeesButton = new JButton("Wyświetl Baze Pracowników");
         employeesButton.setPreferredSize(new Dimension(350,200));
         employeesButton.setFocusable(false);
         employeesButton.addActionListener(this);

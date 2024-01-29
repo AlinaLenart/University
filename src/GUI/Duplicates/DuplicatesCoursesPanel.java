@@ -1,9 +1,10 @@
-package GUI.DisplayPanels;
+package GUI.Duplicates;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import Databases.*;
 import Person.*;
@@ -11,14 +12,15 @@ import Student.*;
 
 import javax.swing.*;
 
-public class DisplayCourses implements ActionListener {
+public class DuplicatesCoursesPanel implements ActionListener {
     private Courses coursesDatabase;
     private JFrame frame;
-    private JButton backButton;
+    private JButton confirmButton;
+    private JButton quitButton;
     private JList<String> coursesList;
     private DefaultListModel<String> listModel;
 
-    public DisplayCourses(Courses coursesDatabase){
+    public DuplicatesCoursesPanel(Courses coursesDatabase){
 
         this.coursesDatabase = coursesDatabase;
 
@@ -38,12 +40,26 @@ public class DisplayCourses implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(coursesList);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        backButton = new JButton("Wróc");
-        backButton.setPreferredSize(new Dimension(100, 50));
-        backButton.setFocusable(false);
-        backButton.addActionListener(this);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
 
-        frame.add(backButton, BorderLayout.SOUTH);
+        JLabel questionLabel = new JLabel("Czy chcesz ją zachować?");
+        questionLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        questionLabel.setHorizontalAlignment(JLabel.CENTER);
+        buttonPanel.add(questionLabel);
+
+        confirmButton = new JButton("TAK");
+        confirmButton.setPreferredSize(new Dimension(150, 100));
+        confirmButton.setFocusable(false);
+        confirmButton.addActionListener(this);
+        buttonPanel.add(confirmButton);
+
+        quitButton = new JButton("NIE");
+        quitButton.setPreferredSize(new Dimension(150, 100));
+        quitButton.setFocusable(false);
+        quitButton.addActionListener(this);
+        buttonPanel.add(quitButton);
+
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         displayStudentList();
 
@@ -65,7 +81,7 @@ public class DisplayCourses implements ActionListener {
         for (int i = 0; i < coursesArrayList.size(); i++) {
             Course c = coursesArrayList.get(i);
             listModel.addElement(String.format("%-4s %s \n",
-                                                (i + 1), c.toString()));
+                    (i + 1), c.toString()));
 
         }
 
@@ -74,10 +90,21 @@ public class DisplayCourses implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == backButton){
+        if(e.getSource() == quitButton){
             frame.dispose();
-
         }
+        else if(e.getSource() == confirmButton){
 
+            HashSet<Course> noDuplicatesDatabase = new HashSet<>(coursesDatabase.getCourseArrayList());
+            ArrayList<Course> noDuplicatesArraylist = new ArrayList<>(noDuplicatesDatabase);
+            coursesDatabase.setCourseArrayList(noDuplicatesArraylist);
+
+            JOptionPane.showMessageDialog(frame,
+                    "Baza zaaktualizowana\n",
+                    "Udane",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            frame.dispose();
+        }
     }
 }

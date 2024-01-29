@@ -21,23 +21,23 @@ public class AddCoursePanel implements ActionListener {
 
         this.coursesDatabase = coursesDatabase;
 
-        frame.setSize(500, 300);  // Adjust the size as needed
+        frame.setSize(500, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        JPanel inputPanel = new JPanel(new GridLayout(5, 5));  // Using GridLayout for better arrangement
+        JPanel inputPanel = new JPanel(new GridLayout(5, 5));
 
-        inputPanel.add(new JLabel("Course Name:"));
+        inputPanel.add(new JLabel("Nazwa Kursu:"));
         inputPanel.add(nameField);
 
-        inputPanel.add(new JLabel("Teacher:"));
+        inputPanel.add(new JLabel("Prowadzący:"));
         inputPanel.add(teacherField);
 
-        inputPanel.add(new JLabel("ECTS Points:"));
+        inputPanel.add(new JLabel("Punkty ECTS:"));
         inputPanel.add(ectsField);
 
-        confirmButton = new JButton("Confirm");
+        confirmButton = new JButton("Potwierdź");
         confirmButton.addActionListener(this);
 
         frame.add(inputPanel, BorderLayout.CENTER);
@@ -51,6 +51,7 @@ public class AddCoursePanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == confirmButton){
+
             String name = nameField.getText();
             String teacher = teacherField.getText();
             int ects = Integer.parseInt(ectsField.getText());
@@ -59,11 +60,11 @@ public class AddCoursePanel implements ActionListener {
             coursesDatabase.addRecord(course);
 
             JOptionPane.showMessageDialog(frame,
-                    "Course added to database:\n" +
-                            "Name: " + name +
-                            "\nTeacher: " + teacher +
-                            "\nECTS points: " + ects,
-                        "Course Added",
+                    "Kurs został pomyślnie dodany:\n" +
+                            "Nazwa: " + name +
+                            "\nProwadzacy: " + teacher +
+                            "\nPunkty ECTS: " + ects,
+                        "Kurs Dodany",
                             JOptionPane.INFORMATION_MESSAGE);
 
             frame.dispose();
@@ -71,4 +72,6 @@ public class AddCoursePanel implements ActionListener {
 
         }
     }
+
+
 }

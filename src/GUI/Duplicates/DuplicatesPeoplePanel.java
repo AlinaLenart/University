@@ -1,9 +1,10 @@
-package GUI.DisplayPanels;
+package GUI.Duplicates;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import Databases.*;
 import Employees.AdministrationEmployee;
@@ -14,14 +15,15 @@ import Student.*;
 
 import javax.swing.*;
 
-public class DisplayAllPeople implements ActionListener {
+public class DuplicatesPeoplePanel implements ActionListener {
     private University uniDatabase;
     private JFrame frame;
-    private JButton backButton;
+    private JButton confirmButton;
+    private JButton quitButton;
     private JList<String> peopleList;
     private DefaultListModel<String> listModel;
 
-    public DisplayAllPeople(University uniDatabase){
+    public DuplicatesPeoplePanel(University uniDatabase){
 
         this.uniDatabase = uniDatabase;
 
@@ -31,7 +33,7 @@ public class DisplayAllPeople implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Baza Osób");
+        JLabel titleLabel = new JLabel("Nowa Baza Osób");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         frame.add(titleLabel, BorderLayout.NORTH);
@@ -41,12 +43,26 @@ public class DisplayAllPeople implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(peopleList);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        backButton = new JButton("Wróć");
-        backButton.setPreferredSize(new Dimension(100, 50));
-        backButton.setFocusable(false);
-        backButton.addActionListener(this);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
 
-        frame.add(backButton, BorderLayout.SOUTH);
+        JLabel questionLabel = new JLabel("Czy chcesz ją zachować?");
+        questionLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        questionLabel.setHorizontalAlignment(JLabel.CENTER);
+        buttonPanel.add(questionLabel);
+
+        confirmButton = new JButton("TAK");
+        confirmButton.setPreferredSize(new Dimension(150, 100));
+        confirmButton.setFocusable(false);
+        confirmButton.addActionListener(this);
+        buttonPanel.add(confirmButton);
+
+        quitButton = new JButton("NIE");
+        quitButton.setPreferredSize(new Dimension(150, 100));
+        quitButton.setFocusable(false);
+        quitButton.addActionListener(this);
+        buttonPanel.add(quitButton);
+
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         displayStudentList();
 
@@ -86,10 +102,21 @@ public class DisplayAllPeople implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == backButton){
+        if(e.getSource() == quitButton){
             frame.dispose();
-
         }
+        else if(e.getSource() == confirmButton){
 
+            HashSet<Person> noDuplicatesDatabase = new HashSet<>(uniDatabase.getPersonArrayList());
+            ArrayList<Person> noDuplicatesArraylist = new ArrayList<>(noDuplicatesDatabase);
+            uniDatabase.setPersonArrayList(noDuplicatesArraylist);
+
+            JOptionPane.showMessageDialog(frame,
+                    "Baza zaaktualizowana\n",
+                    "Udane",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            frame.dispose();
+        }
     }
 }

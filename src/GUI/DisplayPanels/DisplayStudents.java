@@ -28,7 +28,7 @@ public class DisplayStudents implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Students Database");
+        JLabel titleLabel = new JLabel("Baza Studentów");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         frame.add(titleLabel, BorderLayout.NORTH);
@@ -38,7 +38,7 @@ public class DisplayStudents implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(studentList);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        backButton = new JButton("Back");
+        backButton = new JButton("Wróć");
         backButton.setPreferredSize(new Dimension(100, 50));
         backButton.setFocusable(false);
         backButton.addActionListener(this);

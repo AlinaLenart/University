@@ -29,7 +29,7 @@ public class DisplayEmployees implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Employees Database");
+        JLabel titleLabel = new JLabel("Baza Pracowników");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         frame.add(titleLabel, BorderLayout.NORTH);
@@ -39,7 +39,7 @@ public class DisplayEmployees implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(employeesList);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        backButton = new JButton("Back");
+        backButton = new JButton("Wróć");
         backButton.setPreferredSize(new Dimension(100, 50));
         backButton.setFocusable(false);
         backButton.addActionListener(this);

@@ -3,6 +3,9 @@ package GUI;
 import Databases.*;
 import GUI.AddPanels.AddPanel;
 import GUI.DisplayPanels.DisplayPanel;
+import GUI.Duplicates.DuplicatesPanel;
+import GUI.SearchPanels.SearchPanel;
+import GUI.SortPanels.SortPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +21,8 @@ public class Menu implements ActionListener {
     private JFrame frame = new JFrame();
     private JButton addButton;
     private JButton displayButton;
+    private JButton sortButton;
+    private JButton searchButton;
 
 
     public Menu(University uniDatabase, Courses coursesDatabase){
@@ -37,25 +42,49 @@ public class Menu implements ActionListener {
             }
         });
 
-        addButton = new JButton("Add");
+        addButton = new JButton("Dodaj");
         addButton.setPreferredSize(new Dimension(350,200));
         addButton.setFocusable(false);
         addButton.addActionListener(this);
+        addButton.setActionCommand("add");
+        frame.add(addButton);
 
-        displayButton = new JButton("Display");
+        displayButton = new JButton("Wyświetl");
         displayButton.setPreferredSize(new Dimension(350,200));
         displayButton.setFocusable(false);
         displayButton.addActionListener(this);
-
-        frame.add(addButton);
+        displayButton.setActionCommand("display");
         frame.add(displayButton);
-        frame.setVisible(true);
 
+        sortButton = new JButton("Sortowanie");
+        sortButton.setPreferredSize(new Dimension(350,200));
+        sortButton.setFocusable(false);
+        sortButton.addActionListener(this);
+        sortButton.setActionCommand("sort");
+        frame.add(sortButton);
+
+        searchButton = new JButton("Szukaj/Usuń");
+        searchButton.setPreferredSize(new Dimension(350,200));
+        searchButton.setFocusable(false);
+        searchButton.addActionListener(this);
+        searchButton.setActionCommand("search");
+        frame.add(searchButton);
+
+        searchButton = new JButton("Usuń duplikaty");
+        searchButton.setPreferredSize(new Dimension(350,200));
+        searchButton.setFocusable(false);
+        searchButton.addActionListener(this);
+        searchButton.setActionCommand("duplicates");
+        frame.add(searchButton);
+
+
+        frame.setVisible(true);
 
 
     }
 
-    private void saveAndExit() {
+    public void saveAndExit() {
+
         uniDatabase.saveDatabaseToFile("uniDatabase.ser");
         coursesDatabase.saveDatabaseToFile("coursesDatabase.ser");
         System.exit(0);
@@ -63,21 +92,29 @@ public class Menu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    //TODO zmien na switch
-        if(e.getSource() == addButton){
 
-            AddPanel addPanel = new AddPanel(uniDatabase, coursesDatabase);
+        switch (e.getActionCommand()){
+            case "add":
+                new AddPanel(uniDatabase, coursesDatabase);
+                break;
+            case "display":
+                new DisplayPanel(uniDatabase, coursesDatabase);
+                break;
+            case "sort":
+                new SortPanel(uniDatabase, coursesDatabase);
+                break;
+            case "search":
+                new SearchPanel(uniDatabase, coursesDatabase);
+                break;
+            case "duplicates":
+                new DuplicatesPanel(uniDatabase, coursesDatabase);
+
 
         }
 
-        else if(e.getSource() == displayButton){
 
-            DisplayPanel displayPanel = new DisplayPanel(uniDatabase, coursesDatabase);
-
-        }
 
     }
-
 
 
 

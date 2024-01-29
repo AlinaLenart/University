@@ -19,7 +19,7 @@ public class AddResEmployee implements ActionListener {
     private JTextField surnameField = new JTextField(20);
     private JTextField peselField = new JTextField(20);
     private JTextField ageField = new JTextField(20);
-    private JComboBox<String> sexComboBox = new JComboBox<>(new String[]{"Male", "Female"});
+    private JComboBox<String> sexComboBox = new JComboBox<>(new String[]{"Mezczyzna", "Kobieta"});
     private JComboBox<String> jobPositionField = new JComboBox<>(new String[]{"Asystent", "Adiunkt", "Profesor Zwyczajny", "Profesor Nadzwyczajny", "Wykladowca", "Inne stanowisko"});
     private JTextField workExperienceField = new JTextField(20);
     private JTextField salaryField = new JTextField(20);
@@ -31,42 +31,42 @@ public class AddResEmployee implements ActionListener {
     public AddResEmployee(University uniDatabase){
         this.uniDatabase = uniDatabase;
 
-        frame.setSize(600, 800);  // Adjust the size as needed
+        frame.setSize(600, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        inputPanel = new JPanel(new GridLayout(5, 2));  // Using GridLayout for better arrangement
+        inputPanel = new JPanel(new GridLayout(5, 2));
 
-        inputPanel.add(new JLabel("Name:"));
+        inputPanel.add(new JLabel("Imie:"));
         inputPanel.add(nameField);
 
-        inputPanel.add(new JLabel("Surname:"));
+        inputPanel.add(new JLabel("Nazwisko:"));
         inputPanel.add(surnameField);
 
         inputPanel.add(new JLabel("PESEL:"));
         inputPanel.add(peselField);
 
-        inputPanel.add(new JLabel("Age:"));
+        inputPanel.add(new JLabel("Wiek:"));
         inputPanel.add(ageField);
 
-        inputPanel.add(new JLabel("Sex:"));
+        inputPanel.add(new JLabel("Płeć:"));
         inputPanel.add(sexComboBox);
 
-        inputPanel.add(new JLabel("Job Position:"));
+        inputPanel.add(new JLabel("Stanowisko pracy:"));
         inputPanel.add(jobPositionField);
 
-        inputPanel.add(new JLabel("Work Experience:"));
+        inputPanel.add(new JLabel("Doświadczenie zawodowe:"));
         inputPanel.add(workExperienceField);
 
-        inputPanel.add(new JLabel("Salary:"));
+        inputPanel.add(new JLabel("Pensja:"));
         inputPanel.add(salaryField);
 
-        inputPanel.add(new JLabel("Overtime (in hours):"));
+        inputPanel.add(new JLabel("Publikacje :"));
         inputPanel.add(releasesField);
 
 
-        confirmButton = new JButton("Confirm");
+        confirmButton = new JButton("Potwierdź");
         confirmButton.addActionListener(this);
 
         frame.add(inputPanel, BorderLayout.CENTER);
@@ -96,17 +96,17 @@ public class AddResEmployee implements ActionListener {
             uniDatabase.addRecord(employee);
 
             JOptionPane.showMessageDialog(frame,
-                    "Research Employee added to database:\n" +
-                            "Name: " + name +
-                            "\nSurname: " + surname +
+                    "Pracownik Badawczo-Dydaktyczny został pomyślnie dodany:\n" +
+                            "Imie: " + name +
+                            "\nNazwisko: " + surname +
                             "\nPESEL: " + pesel +
-                            "\nAge: " + age +
-                            "\nSex: " + sex +
-                            "\nJob Position: " + jobPosition +
-                            "\nWrok Experience: " + workExperience +
-                            "\nSalary: " + salary +
-                            "\nOvertime (in hours): " + releases,
-                    "Research Employee Added",
+                            "\nWiek: " + age +
+                            "\nPłeć: " + sex +
+                            "\nStanowisko pracy: " + jobPosition +
+                            "\nDoświadczenie zawodowe: " + workExperience +
+                            "\nPensja: " + salary +
+                            "\nPublikacje: " + releases,
+                    "Pracownik Badawczo-Dydaktyczny Dodany",
                     JOptionPane.INFORMATION_MESSAGE);
 
             frame.dispose();

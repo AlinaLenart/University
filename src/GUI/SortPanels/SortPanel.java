@@ -1,4 +1,4 @@
-package GUI.AddPanels;
+package GUI.SortPanels;
 
 import Databases.*;
 
@@ -7,14 +7,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddPanel implements ActionListener {
+public class SortPanel implements ActionListener {
     private University uniDatabase;
     private Courses coursesDatabase;
     private JFrame frame = new JFrame();;
     private JButton peopleButton;
     private JButton coursesButton;
 
-    public AddPanel(University uniDatabase, Courses coursesDatabase){
+    public SortPanel(University uniDatabase, Courses coursesDatabase){
 
         this.uniDatabase = uniDatabase;
         this.coursesDatabase = coursesDatabase;
@@ -24,34 +24,33 @@ public class AddPanel implements ActionListener {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-
-        peopleButton = new JButton("Dodaj do bazy Osób");
+        peopleButton = new JButton("Sort People Database");
         peopleButton.setPreferredSize(new Dimension(350,200));
         peopleButton.setFocusable(false);
         peopleButton.addActionListener(this);
 
-        coursesButton = new JButton("Dodaj do bazy Kursów");
+        coursesButton = new JButton("Sort Courses Database");
         coursesButton.setPreferredSize(new Dimension(350,200));
         coursesButton.setFocusable(false);
         coursesButton.addActionListener(this);
 
         frame.add(peopleButton);
         frame.add(coursesButton);
+
         frame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == peopleButton){
-            frame.dispose();
-            new AddPeoplePanel(uniDatabase, coursesDatabase);
-        }
-        else if(e.getSource() == coursesButton) {
-            frame.dispose();
-            new AddCoursePanel(coursesDatabase);
-        }
+        if(e.getSource() == peopleButton)
+            new SortPeoplePanel(uniDatabase);
 
+        else if(e.getSource() == coursesButton)
+            new SortCoursesPanel(coursesDatabase);
+
+
+        frame.dispose();
     }
 
 }
